@@ -1,0 +1,7 @@
+
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^howsmyteam\.dimarcocg\.com$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.howsmyteam\.dimarcocg\.com$
+RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
+RewriteCond %{REQUEST_URI} !^/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^/?$ "http\:\/\/www\.app\.howsmyteam\.net" [R=301,L]
