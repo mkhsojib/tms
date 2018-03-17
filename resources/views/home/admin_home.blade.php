@@ -73,34 +73,36 @@
                 <div class="panel-heading">All Uploads</div>
 
                 <div class="panel-body">
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Updated Date</th>
-                            <th>Week</th>
-                            <th>Assign</th>
-                            <th>Delete</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @forelse ($dates as $key=>$user)
-
-
+                    @if($dates != null && $dates != '')
+                        <table class="table table-striped">
+                            <thead>
                             <tr>
-                                <td>{{($key+1)}}</td>
-                                <td>{{$user->uploaded_time->toFormattedDateString()}}</td>
-                                <td>{{$user->week_name}}</td>
-                                <td>{{$user->user->name}}</td>
-                                <td>
-                                    <button  data-id="{{$user->id}}" class="btn btn-danger deleteButton">Delete
-                                    </button>
-                                </td>
+                                <th>#</th>
+                                <th>Updated Date</th>
+                                <th>Week</th>
+                                <th>Assign</th>
+                                <th>Delete</th>
                             </tr>
-                            @endforeach
+                            </thead>
+                            <tbody>
+                            @forelse ($dates as $key=>$user)
 
-                        </tbody>
-                    </table>
+
+                                <tr>
+                                    <td>{{($key+1)}}</td>
+                                    <td>{{$user->uploaded_time->toFormattedDateString()}}</td>
+                                    <td>{{$user->week_name}}</td>
+                                    <td>{{$user->user->name}}</td>
+                                    <td>
+                                        <button  data-id="{{$user->id}}" class="btn btn-danger deleteButton">Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                                @endforeach
+
+                            </tbody>
+                        </table>
+                    @endif
                 </div>
             </div>
         </div>

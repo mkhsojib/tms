@@ -60,7 +60,7 @@ class UsersController extends Controller
         $roles = $request->input('roles') ? $request->input('roles') : [];
         $user->assignRole($roles);
 
-        return redirect()->route('admin.users.index');
+        return redirect()->route('admin.users.admin-setup');
     }
 
 
@@ -140,6 +140,11 @@ class UsersController extends Controller
                 $entry->delete();
             }
         }
+    }
+
+    public function setup_file($id){
+
+        return view('admin.users.admin-setup');
     }
 
 }

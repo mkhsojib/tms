@@ -29,8 +29,6 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-
-
         if (Auth::user()->hasRole('administrator')) {
             $users = User::orderBy('last_login_time', 'desc')->get();
 
