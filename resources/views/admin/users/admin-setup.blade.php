@@ -12,7 +12,8 @@
 
                 <div class="panel-body">
                     <div class="row">
-                        {!! Form::open(['method' => 'POST', 'route' => ['admin.users.store']]) !!}
+                        {!! Form::open(['method' => 'POST', 'route' => ['admin.users.totalInsertGraph']]) !!}
+                        {!! Form::hidden('id', $id, array('id' => 'invisible_id')) !!}
                         <div class="col-lg-4 col-xs-12 form-group">
                             {!! Form::label('graphNo', 'Number of Graph*', ['class' => 'control-label']) !!}
                             {!! Form::text('graphNo', old('graphNo'), ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
@@ -25,7 +26,7 @@
                         </div>
                         <div class="col-lg-4 col-xs-12 form-group">
                             {!! Form::label('typeOf', 'Type of*', ['class' => 'control-label']) !!}
-                            {{ Form::select('typeOf', [ 'weekly' => 'Weekly', 'yearly' => 'Yearly' ], old('typeOf'), ['class' => 'form-control', 'required' => ''])}}
+                            {{ Form::select('typeOf', ['' => 'Select any one', 'weekly' => 'Weekly', 'yearly' => 'Yearly' ], old('typeOf'), ['class' => 'form-control', 'required' => ''])}}
                             <p class="help-block"></p>
                             @if($errors->has('typeOf'))
                                 <p class="help-block">

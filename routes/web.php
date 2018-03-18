@@ -24,6 +24,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::post('roles_mass_destroy', ['uses' => 'Admin\RolesController@massDestroy', 'as' => 'roles.mass_destroy']);
 
     Route::get('user/setup/{id}', 'Admin\UsersController@setup_file')->name('users.setup');
+    Route::post('user/insertGraph', 'Admin\UsersController@totalInsertGraph')->name('users.totalInsertGraph');
 
     Route::resource('users', 'Admin\UsersController');
     Route::post('users_mass_destroy', ['uses' => 'Admin\UsersController@massDestroy', 'as' => 'users.mass_destroy']);

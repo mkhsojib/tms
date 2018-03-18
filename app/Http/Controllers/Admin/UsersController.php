@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\FileUploadLoger;
 use App\Player;
 use App\User;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -143,8 +144,20 @@ class UsersController extends Controller
     }
 
     public function setup_file($id){
+            $id  = $id;
+        return view('admin.users.admin-setup', compact('id'));
+    }
 
-        return view('admin.users.admin-setup');
+    public function totalInsertGraph(Request $request){
+        $uId = $request->input('id');
+        $graphNo = $request->input('graphNo');
+        $typeOf = $request->input('typeOf');
+
+        DB::table('users')->where('id', $uId)->update(['typeOf' => $typeOf, 'graphNo' => $graphNo]);
+
+        $id  = $uId;
+        // return view('admin.users.admin-setup', compact('id'));
+        return redirect(route('admin.users.setup',[$id]));
     }
 
 }
