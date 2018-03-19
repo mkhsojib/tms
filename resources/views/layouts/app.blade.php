@@ -7,7 +7,7 @@
 </head>
 
 
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini" ng-app="tms">
 @include('partials.page-preloader')
 <div id="wrapper">
 @include('partials.topbar')

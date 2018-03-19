@@ -155,9 +155,10 @@ class UsersController extends Controller
 
         DB::table('users')->where('id', $uId)->update(['typeOf' => $typeOf, 'graphNo' => $graphNo]);
 
-        $id  = $uId;
+        $users = User::findOrFail($uId);
+
         // return view('admin.users.admin-setup', compact('id'));
-        return redirect(route('admin.users.setup',[$id]));
+        return redirect(route('admin.users.setup',[$uId]))->compact('users');
     }
 
 }
