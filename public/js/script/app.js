@@ -15,7 +15,7 @@ tms.controller('temsSetupController', function temsSetupController($scope) {
      $scope.graphList = [];
      $scope.generateDiv = function(){
          $scope.graphList = [];
-         for(var i=0;i<$scope.userVM.graphNo;i++){
+         for(var i=0; i<$scope.userVM.graphNo; i++){
              var info = {
                  title : "",
                  numberOfKey:0,
@@ -26,9 +26,10 @@ tms.controller('temsSetupController', function temsSetupController($scope) {
      };
 
      $scope.generateTitileDiv = function(key){
+
          var information = $scope.graphList[key];
          $scope.graphList[key]['ownData'] = [];
-         for(var i=0;i<information.numberOfKey;i++){
+         for(var i=0; i<information.numberOfKey; i++){
              var info = {
                  name : "",
                  alphabet : ""
@@ -41,6 +42,7 @@ tms.controller('temsSetupController', function temsSetupController($scope) {
 
      $scope.submitSetupGraph = function () {
 
+         $scope.graphList.push($scope.userVM);
          console.log($scope.graphList);
      }
 
