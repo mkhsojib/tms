@@ -129,8 +129,7 @@ class FileUploadController extends Controller
     public function trands(Request $request)
     {
         $player_information = Player::select(DB::raw(
-            "
-                concat('week ',week_id) as wk,
+            "   concat('week ',week_id) as wk,
                 round(avg(`hours_of_sleep`),2) as hours_of_sleep, 
                 round(avg(`how_many_naps`),2) as how_many_naps, 
                 round(avg(`nutrition`),2) as nutrition, 
@@ -150,20 +149,21 @@ class FileUploadController extends Controller
                 round(avg(`performance_in_practice`),2) as performance_in_practice,  
                 round(avg(`focus_during_practice`),2) as focus_during_practice, 
                 round(avg(`effort_during_practice`),2) as effort_during_practice, 
-                 round(avg(`execution_during_practice`),2) as execution_during_practice, 	 	 
-                 round(avg(`game_performance`),2) as game_performance, 
-                 round(avg(`offensive_game_performance`),2) as offensive_game_performance, 
-                 round(avg(`defensive_game_performance`),2) as defensive_game_performance, 
-                 round(avg(`special_teams_game_performance`),2) as special_teams_game_performance,
-                 round(avg(`academic_progress`),2) as academic_progress,
-                 round(avg(`relationship_teammates`),2) as relationship_teammates,
-                 round(avg(`relationship_staff`),2) as relationship_staff, 
-                 round(avg(`relationships_personal_life`),2) as relationships_personal_life,
-                 count(id) as total, 
-                 sum(if(extra_strength='Yes',1,0)) as extra_strength,
-                 sum(if(extra_skill='Yes',1,0))as extra_skill,
-                 sum(if(extra_cardio='Yes',1,0))as   extra_cardio, 
-                 sum(if(watch_video='Yes',1,0))as watch_video"
+                round(avg(`execution_during_practice`),2) as execution_during_practice, 	 	 
+                round(avg(`game_performance`),2) as game_performance, 
+                round(avg(`offensive_game_performance`),2) as offensive_game_performance, 
+                round(avg(`defensive_game_performance`),2) as defensive_game_performance, 
+                round(avg(`special_teams_game_performance`),2) as special_teams_game_performance,
+                round(avg(`academic_progress`),2) as academic_progress,
+                round(avg(`relationship_teammates`),2) as relationship_teammates,
+                round(avg(`relationship_staff`),2) as relationship_staff, 
+                round(avg(`relationships_personal_life`),2) as relationships_personal_life,
+                count(id) as total, 
+                sum(if(extra_strength='Yes',1,0)) as extra_strength,
+                sum(if(extra_skill='Yes',1,0))as extra_skill,
+                sum(if(extra_cardio='Yes',1,0))as   extra_cardio, 
+                sum(if(watch_video='Yes',1,0))as watch_video
+            "
 
 
         ))->whereRaw("user_id = " . Auth::user()->id . " and wk!='null'")->groupBy('week_id')->orderBy('week_id','asc')->get();
