@@ -36,89 +36,30 @@ class HomeController extends Controller
             //dd($dates);
             return view('home.admin_home')->with(compact('users', 'dates'));
         } else if (Auth::user()->hasRole('coach')) {
-
-
-            if($request->id!=null){
-                $graphInfo = DB::select("
-                SELECT extra_strength,extra_cardio,extra_skill,watch_video 
-                from players where user_id = ? and  week_id = 
-                (select week_id from file_upload_loger  where week_id=? and user_id = ? 
-                order by id desc limit 1)
-           ", array(Auth::user()->id,$request->id, Auth::user()->id));
-
-                $graphData = [
-                    "extra_strength_yes" => 0,
-                    "extra_strength_no" => 0,
-                    "extra_cardio_yes" => 0,
-                    "extra_cardio_no" => 0,
-                    "extra_skill_yes" => 0,
-                    "extra_skill_no" => 0,
-                    "watch_video_yes" => 0,
-                    "watch_video_no" => 0];
-                if (count($graphInfo) > 0) {
-                    foreach ($graphInfo as $data) {
-                        $data->extra_strength == "Yes" ? $graphData['extra_strength_yes']++ : $graphData['extra_strength_no']++;
-                        $data->extra_cardio == "Yes" ? $graphData['extra_cardio_yes']++ : $graphData['extra_cardio_no']++;
-                        $data->extra_skill == "Yes" ? $graphData['extra_skill_yes']++ : $graphData['extra_skill_no']++;
-                        $data->watch_video == "Yes" ? $graphData['watch_video_yes']++ : $graphData['watch_video_no']++;
-                    }
-
-                    //  $graphData['extra_strength_yes'] = number_format(($graphData['extra_strength_yes']*100)/count($graphInfo),2);
-                    //   $graphData['extra_strength_no'] = number_format(100-$graphData['extra_strength_yes'],2);
-
+            try{
+                $excellData = FileUploadLoger::where('user_id',Auth::user()->id)->orderBy('id', 'desc')->first()->playersInformation;
+                $info = [];
+                foreach ($excellData as $key=>$aData){
+                    $latestInfo =   array_filter($aData->toArray(), function($var){return !is_null($var);} );
+                    unset($latestInfo['id']);
+                    unset($latestInfo['user_id']);
+                    unset($latestInfo['file_upload_loger']);
+                    unset($latestInfo['created_at']);
+                    unset($latestInfo['updated_at']);
+                    unset($latestInfo['is_question']);
+                    $info[] = $latestInfo;
                 }
-                $players = DB::select("
-                SELECT *
-                from players where user_id = ? and  week_id = 
-                (select week_id from file_upload_loger where week_id=? and user_id = ? 
-                order by id desc limit 1)
-           ", array(Auth::user()->id,$request->id, Auth::user()->id));
-            }else{
+                $excellData = $info;
+                $excellKey = collect($excellData[0])->keys();
+                $weekList = FileUploadLoger::where('user_id',Auth::user()->id)->orderBy('id','desc')->get();
 
 
-                $graphInfo = DB::select("
-                SELECT extra_strength,extra_cardio,extra_skill,watch_video 
-                from players where user_id = ? and week_id = 
-                (select week_id from file_upload_loger where user_id = ? 
-                order by week_id desc limit 1)
-           ", array(Auth::user()->id, Auth::user()->id));
 
-                $graphData = [
-                    "extra_strength_yes" => 0,
-                    "extra_strength_no" => 0,
-                    "extra_cardio_yes" => 0,
-                    "extra_cardio_no" => 0,
-                    "extra_skill_yes" => 0,
-                    "extra_skill_no" => 0,
-                    "watch_video_yes" => 0,
-                    "watch_video_no" => 0];
-                if (count($graphInfo) > 0) {
-                    foreach ($graphInfo as $data) {
-                        $data->extra_strength == "Yes" ? $graphData['extra_strength_yes']++ : $graphData['extra_strength_no']++;
-                        $data->extra_cardio == "Yes" ? $graphData['extra_cardio_yes']++ : $graphData['extra_cardio_no']++;
-                        $data->extra_skill == "Yes" ? $graphData['extra_skill_yes']++ : $graphData['extra_skill_no']++;
-                        $data->watch_video == "Yes" ? $graphData['watch_video_yes']++ : $graphData['watch_video_no']++;
-                    }
-
-                    //  $graphData['extra_strength_yes'] = number_format(($graphData['extra_strength_yes']*100)/count($graphInfo),2);
-                    //   $graphData['extra_strength_no'] = number_format(100-$graphData['extra_strength_yes'],2);
-
-                }
-                $players = DB::select("
-                SELECT *
-                from players where user_id = ? and week_id = 
-                (select week_id from file_upload_loger where user_id = ? 
-                order by week_id desc limit 1)
-           ", array(Auth::user()->id, Auth::user()->id));
+                return view('home.coach_home')->with(compact('excellData','excellKey','weekList'));
+            }catch (\Exception $e){
+                return abort(404,$e->getMessage());
             }
 
-
-
-
-            $weekList = FileUploadLoger::where('user_id',Auth::user()->id)->orderBy('week_id','desc')->get();
-
-
-            return view('home.coach_home')->with(compact('graphData','players','weekList'));
         }
 
         return view('home.guest_home');
