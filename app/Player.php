@@ -13,4 +13,6 @@ class Player extends Model
     ];
 
     protected $dates = ['uploaded_date'];
+
+
 }

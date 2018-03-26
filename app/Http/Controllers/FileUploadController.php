@@ -16,50 +16,11 @@ use File;
 
 class FileUploadController extends Controller
 {
-    public $keyData = [
-        'wk',
-        'jersey_number',
-        'hours_of_sleep',
-        'how_many_naps',
-        'nutrition',
-        'breakfast',
-        'lunch',
-        'supper',
-        'total_meals',
-        'pre_game_snacks',
-        'post_game_snack_refuel',
-        'hydration',
-        'stress_level',
-        'stress_from_hockey',
-        'stress_from_school',
-        'stress_from_personal',
-        'strength_workouts',
-        'extra_strength',
-        'cardio_workouts',
-        'extra_cardio',
-        'performance_in_practice',
-        'focus_during_practice',
-        'effort_during_practice',
-        'execution_during_practice',
-        'extra_skill',
-        'watch_video',
-        'game_performance',
-        'offensive_game_performance',
-        'defensive_game_performance',
-        'special_teams_game_performance',
-        'academic_progress',
-        'relationship_teammates',
-        'relationship_staff',
-        'relationships_personal_life',
-        'year',
-        'created_at',
-        'updated_at'
 
-    ];
-    private $weekName;
-    private $weekId;
+
 
     public $information = [];
+    public $numberOfColumn= 0;
 
     public function index()
     {
@@ -68,11 +29,28 @@ class FileUploadController extends Controller
 
     }
 
+    private function getIndex ($string) {
+        $string = strtoupper($string);
+        $length = strlen($string);
+        $number = 0;
+        $level = 1;
+        while ($length >= $level ) {
+            $char = $string[$length - $level];
+            $c = ord($char) - 64;
+            $number += $c * (26 ** ($level-1));
+            $level++;
+        }
+        return $number;
+    }
+
+
+
     public function import(Request $request)
     {
         $this->validate($request, array(
             'file' => 'required',
-            'team_member_id' => 'required'
+            'team_member_id' => 'required',
+            'week_name' => 'required'
         ));
 
         $uploadedDate = Carbon::now()->toDateString();
@@ -83,66 +61,39 @@ class FileUploadController extends Controller
                 $path = $request->file->getRealPath();
                 Excel::load($path, function ($reader) use ($request,$uploadedDate) {
                     $excel = $reader->getExcel();
+                    $userId = $request->team_member_id;
                     foreach ($excel->getWorksheetIterator() as $sheet) {
                         $maxCol = $sheet->getHighestColumn();
                         $maxRow = $sheet->getHighestRow();
+
                         foreach ($sheet->getRowIterator() as $index => $row) {
-
-                            if ($index == 1) {
-                                continue;
+                            $insertedData = new Player( ["user_id"=>$userId]);
+                            if($index==1){
+                                $insertedData["is_question"]=1;
                             }
-                            if ($index > $maxRow) {
-                                break;
+                            foreach ($row->getCellIterator() as $key=>$cell){
+                               // dd($cell->getColumn(),$cell->getCalculatedValue());
+                                $insertedData[strtolower($cell->getColumn())] = $cell->getCalculatedValue();
                             }
-
-                            $insertedData = array_flip($this->keyData);
-
-
-                            $index = 0;
-                            foreach ($row->getCellIterator() as $key => $cell) {
-
-                                if (count($this->keyData) <= $index || count($this->keyData) <= ($index + 1)) {
-
-                                    break;
-                                }
-
-                                $value = $cell->getCalculatedValue();
-                                $insertedData[$this->keyData[$index]] = $value;
-                                $index = $index + 1;
-
-                            }
-                            $insertedData['created_at'] = date('Y-m-d H:i:s');
-                            $insertedData['updated_at'] = date('Y-m-d H:i:s');
-                            $insertedData['year'] = date('Y');
-                            $insertedData['user_id'] = $request->team_member_id;
-                            $insertedData['uploaded_date'] = $uploadedDate;
-                            if(count($this->information)==0){
-                                $this->weekName = $insertedData['wk'];
-                                $this->weekId = preg_replace('/[^0-9]/', '', $insertedData['wk']);
-                                $insertedData['week_id'] = $this->weekId;
-                            }else{
-                                $insertedData['wk'] = $this->weekName;
-                                $insertedData['week_id'] = $this->weekId;
-                            }
-
 
                             $this->information[] = $insertedData;
+                            $insertedData = [];
 
                         }
-                        break;
                     }
                 });
 
 
+
+
                 if (!empty($this->information)) {
 
-                    Player::where('week_id',$this->weekId)->where('user_id',$request->team_member_id)->delete();
 
-                    $insertData = DB::table('players')->insert($this->information);
 
-                    FileUploadLoger::create(['week_name' => $this->weekName, 'week_id'=>$this->weekId,'user_id' => $request->team_member_id, 'uploaded_time' => $uploadedDate]);
-                    if ($insertData) {
-                        Player::where('jersey_number', 0)->delete();
+                   $fileUploadInfo =  FileUploadLoger::create(['week_name' => $request->week_name, 'user_id' => $request->team_member_id, 'uploaded_time' => $uploadedDate]);
+                    if ($fileUploadInfo) {
+                       // Player::where('jersey_number', 0)->delete();
+                        $fileUploadInfo->playersInformation()->saveMany($this->information);
                         Session::flash('success', 'Your Data has successfully imported');
                     } else {
                         Session::flash('error', 'Error inserting the data..');

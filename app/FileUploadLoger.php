@@ -9,7 +9,7 @@ class FileUploadLoger extends Model
     //
     protected $table = 'file_upload_loger';
     protected $fillable = [
-        "week_name","user_id","uploaded_time","week_id"
+        "week_name","user_id","uploaded_time"
     ];
 
     protected $dates = [
@@ -19,6 +19,11 @@ class FileUploadLoger extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function playersInformation()
+    {
+        return $this->hasMany(Player::class,'file_upload_loger','id');
     }
 
 
