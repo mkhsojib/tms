@@ -51,7 +51,7 @@
                             <select class="form-control" id="changeWeek">
 
                                 @foreach($weekList as $week)
-                                    <option {{request()->id!=null && request()->id==$week->week_id?'selected':''}} value="{{$week->week_id}}">{{$week->week_name}}</option>
+                                    <option {{request()->id!=null && request()->id==$week->id?'selected':''}} value="{{$week->id}}">{{$week->week_name}}</option>
                                 @endforeach
 
                             </select>
@@ -100,13 +100,14 @@
     <script src="{{ asset('/js/tableHeadFixer.js') }}"></script>
     <script>
 
-        {{--$(document).ready(function () {--}}
-        {{--$("#excellTable").tableHeadFixer({'left': 1});--}}
+        $(document).ready(function () {
+            $("#excellTable").tableHeadFixer({'left': 2});
 
-        {{--$('#changeWeek').on('change', function() {--}}
-        {{--var info = $("#changeWeek").val();--}}
-        {{--window.location = "{{url('admin/home')}}/"+info;//here double curly bracket--}}
-        {{--});--}}
+            $('#changeWeek').on('change', function () {
+                var info = $("#changeWeek").val();
+                window.location = "{{url('admin/home')}}/" + info;//here double curly bracket
+            });
+        });
 
 
         {{--$('#excellTable > tbody  > tr').each(function (i, row) {--}}

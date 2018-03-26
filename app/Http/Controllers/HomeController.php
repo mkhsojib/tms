@@ -37,10 +37,20 @@ class HomeController extends Controller
             return view('home.admin_home')->with(compact('users', 'dates'));
         } else if (Auth::user()->hasRole('coach')) {
             try{
-                $excellData = FileUploadLoger::where('user_id',Auth::user()->id)->orderBy('id', 'desc')->first()->playersInformation;
+
+                if($request->id==null) {
+                    $excellData = FileUploadLoger::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->first()->playersInformation;
+
+
+                }else{
+                    $excellData = FileUploadLoger::where('user_id', Auth::user()->id)->where('id',$request->id)->orderBy('id', 'desc')->first()->playersInformation;
+                }
+
                 $info = [];
-                foreach ($excellData as $key=>$aData){
-                    $latestInfo =   array_filter($aData->toArray(), function($var){return !is_null($var);} );
+                foreach ($excellData as $key => $aData) {
+                    $latestInfo = array_filter($aData->toArray(), function ($var) {
+                        return !is_null($var);
+                    });
                     unset($latestInfo['id']);
                     unset($latestInfo['user_id']);
                     unset($latestInfo['file_upload_loger']);
@@ -51,9 +61,7 @@ class HomeController extends Controller
                 }
                 $excellData = $info;
                 $excellKey = collect($excellData[0])->keys();
-                $weekList = FileUploadLoger::where('user_id',Auth::user()->id)->orderBy('id','desc')->get();
-
-
+                $weekList = FileUploadLoger::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->get();
 
                 return view('home.coach_home')->with(compact('excellData','excellKey','weekList'));
             }catch (\Exception $e){
