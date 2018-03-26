@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\FileUploadLoger;
 use App\Player;
 use App\User;
+use App\UserGraph;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
@@ -144,21 +145,49 @@ class UsersController extends Controller
     }
 
     public function setup_file($id){
-            $id  = $id;
         return view('admin.users.admin-setup', compact('id'));
     }
 
     public function totalInsertGraph(Request $request){
-        $uId = $request->input('id');
-        $graphNo = $request->input('graphNo');
-        $typeOf = $request->input('typeOf');
+        $graphData = collect($request->graph_data);
 
-        DB::table('users')->where('id', $uId)->update(['typeOf' => $typeOf, 'graphNo' => $graphNo]);
 
-        $users = User::findOrFail($uId);
 
-        // return view('admin.users.admin-setup', compact('id'));
-        return redirect(route('admin.users.setup',[$uId]))->compact('users');
+        $GenerateGraphData = [];
+        foreach ($graphData as $key => $aData){
+            foreach ($aData['ownData'] as $insideGraph){
+                $GenerateGraphData[] = new UserGraph(["graph_id"=>($key+1),'graph_name'=>$aData['title'],
+                    'column_name'=>$insideGraph['name'],'excell_name'=>$insideGraph['alphabet']]);
+            }
+
+        }
+        $user = User::find($request->user_id);
+        $user->graphs()->delete();
+        $user->graphs()->saveMany($GenerateGraphData);
+
+        echo json_encode(["success"=>true,"message"=>"data insert successfully"]);
+
+    }
+
+    public function getUserData($id){
+        $user = User::find($id);
+        $userData = $user->graphs()->get();
+        $generateData= [];
+        if(count($userData)>0){
+            $index = 0;
+            $grouped = $userData->groupBy('graph_id');
+            foreach ($grouped as $key=> $aData){
+                $info = ['title'=>$aData[$index]['graph_name'],'numberOfKey'=>count($aData),'ownData'=>[['name'=>$aData[$index]['column_name'],'alphabet'=>$aData[$index]['excell_name']]]];
+                for ($i=1;$i<count($aData);$i++){
+                    $info['ownData'][] = ['name'=>$aData[$i]['column_name'],'alphabet'=>$aData[$i]['excell_name']];
+                }
+                $generateData[] = $info;
+                $index++;
+            }
+
+        }
+
+        echo json_encode(['generated_data'=>$generateData]);
     }
 
 }

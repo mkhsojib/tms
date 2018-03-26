@@ -46,50 +46,7 @@ tms.controller('temsSetupController', function temsSetupController($scope) {
          console.log($scope.graphList);
      }
 
-    // $scope.newUserVM = [];
-    // $scope.graphVM1 = [];
-    // $scope.excelColVM1 = [];
-    //
-    //
-    // $scope.generateDiv = function () {
-    //     $scope.newUserVM = [];
-    //     $scope.graphVM1 = [];
-    //     var graph_count = $scope.userVM.graphNo;
-    //
-    //     $scope.graphVM = {};
-    //
-    //     for($i=1; $i <= parseInt(graph_count); $i++){
-    //         $scope.graphVM.graphTitle = "";
-    //         $scope.graphVM.numberOfCol = "";
-    //         $scope.graphVM1.push($scope.graphVM);
-    //     }
-    //
-    //     $scope.newUserVM.push($scope.graphVM1);
-    //     $scope.newUserVM.push($scope.userVM);
-    //
-    //     console.log('part', $scope.newUserVM[0]);
-    //
-    //     console.log('check1', $scope.newUserVM);
-    //
-    // }
-    // /*$scope.generateTitileDiv = function () {
-    //     var other_count = $scope.graphVM.numberOfCol;
-    //
-    //     for($i=1; $i <= parseInt(other_count); $i++){
-    //         $scope.excelColVM.nameOfCol = "";
-    //         $scope.excelColVM.alphabet = "";
-    //         $scope.excelColVM1.push($scope.excelColVM);
-    //     }
-    // }*/
-    //
-    //
-    // // console.log('check12', $scope.excelColVM1);
-    //
-    // $scope.submitSetupGraph = function () {
-    //     $scope.userVM.usersId = $scope.userVM.userId;
-    //     console.log($scope.userVM);
-    // }
-
 
 
 });
+

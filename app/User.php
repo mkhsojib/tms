@@ -20,7 +20,7 @@ class User extends Authenticatable
     use Notifiable;
     use HasRoles;
 
-    protected $fillable = ['name', 'email', 'password', 'graphNo', 'typeOf', 'remember_token'];
+    protected $fillable = ['name', 'email', 'password', 'typeOf', 'remember_token'];
     protected  $dates = ['last_login_time'];
     
     
@@ -38,6 +38,12 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsToMany(Role::class, 'role_user');
+    }
+
+
+    public function graphs()
+    {
+        return $this->hasMany(UserGraph::class);
     }
     
     

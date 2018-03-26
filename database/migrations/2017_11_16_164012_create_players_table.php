@@ -16,8 +16,9 @@ class CreatePlayersTable extends Migration
         Schema::create('players', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->default(1);
-            $table->string('wk')->nullable();
-            $table->string('jersey_number')->nullable();
+            $table->string('type_of')->nullable();
+            $table->string('jersey_number');
+            $table->integer('is_question')->default(0);
             $table->text('a')->nullable();
             $table->text('b')->nullable();
             $table->text('c')->nullable();
@@ -122,7 +123,6 @@ class CreatePlayersTable extends Migration
             $table->text('cx')->nullable();
             $table->text('cy')->nullable();
             $table->text('cz')->nullable();
-
             $table->timestamps();
         });
     }
