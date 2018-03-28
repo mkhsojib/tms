@@ -37,7 +37,7 @@ class HomeController extends Controller
             return view('home.admin_home')->with(compact('users', 'dates'));
         } else if (Auth::user()->hasRole('coach')) {
             try{
-
+                $weekList = FileUploadLoger::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->get();
                 if($request->id==null) {
                     $excellData = FileUploadLoger::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->first()->playersInformation;
 
@@ -65,7 +65,9 @@ class HomeController extends Controller
 
                 return view('home.coach_home')->with(compact('excellData','excellKey','weekList'));
             }catch (\Exception $e){
-                return abort(404,$e->getMessage());
+                $excellData = [];
+                $excellKey = [];
+                return view('home.coach_home')->with(compact('excellData','excellKey','weekList'));
             }
 
         }

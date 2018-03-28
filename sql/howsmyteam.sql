@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 26, 2018 at 07:48 PM
+-- Generation Time: Mar 28, 2018 at 07:19 PM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.14
 
@@ -389,9 +389,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`, `last_login_time`) VALUES
-(1, 'Admin', 'admin@email.com', '$2y$10$DNGRjh4O08K9WVwBBMgD2.CL8YtH07r0KjtzYeT6yBOOSNfWbP7CG', '90qjRswpUicuJGb18tCqU7b7RSgnk1ewQT8WNYwJo4Dw9MA3ktNuIiZFn8aY', '2017-11-15 08:32:25', '2018-03-26 11:18:18', '2018-03-26 11:18:18'),
-(7, 'tapos', 'tapos@email.com', '$2y$10$T0Bn1SEXNGRfv5RMaPkbAur7GU50HGa/7celE/IYTntxNDhUlJwr6', 'JVhHz8lgdhwLCrUH2UFg1AadOu3hqc2zlpMBI5Wk9Nb7rDymzio0FNy9QBFo', '2017-12-04 11:43:59', '2018-03-26 13:42:09', '2018-03-26 13:42:09'),
-(9, 'sojib', 'sojib@email.com', '$2y$10$f731SOgc0T9zDS9l9b9ltOlwtRreVYXtCSF/9pwFuprG4qf92aclm', 'BoYhHDRh4XGnDsufbtZfC0g6GLnMPLrfkrr240im9yH9HTnO57QLOqkClacD', '2017-12-04 11:54:50', '2017-12-10 15:55:55', '2017-12-10 15:55:55'),
+(1, 'Admin', 'admin@email.com', '$2y$10$DNGRjh4O08K9WVwBBMgD2.CL8YtH07r0KjtzYeT6yBOOSNfWbP7CG', '90qjRswpUicuJGb18tCqU7b7RSgnk1ewQT8WNYwJo4Dw9MA3ktNuIiZFn8aY', '2017-11-15 08:32:25', '2018-03-28 11:10:33', '2018-03-28 11:10:33'),
+(7, 'tapos', 'tapos@email.com', '$2y$10$T0Bn1SEXNGRfv5RMaPkbAur7GU50HGa/7celE/IYTntxNDhUlJwr6', '5kj2ocg37pYUzugt43DbV195R0QNCPOq6tXr1aFC7NQPLDEwK8BFFtJjY3bL', '2017-12-04 11:43:59', '2018-03-28 11:07:23', '2018-03-28 11:07:23'),
+(9, 'sojib', 'sojib@email.com', '$2y$10$f731SOgc0T9zDS9l9b9ltOlwtRreVYXtCSF/9pwFuprG4qf92aclm', 'KbbSdWOPP7bgvX3g09rpAHUu5m5BXGvMjahSIA54F653rb7D3Hb228UC14ZK', '2017-12-04 11:54:50', '2018-03-28 10:56:53', '2018-03-28 10:56:53'),
 (12, 'Abrahm DiMarco', 'abrahm.dimarco@gmail.com', '$2y$10$xMJPJ4IyeQ.X/mXTths/J.vkXgQpk2lTg4XrRHyvWWbTHkhqPu17m', 'tGIzbxYQd0cBA5JPFHbrt1lJKhTleVlbSdcdvR5EqC3sOqXGmFtNgMYt0wMJ', '2017-12-10 20:56:16', '2017-12-15 04:11:56', '2017-12-15 04:11:56'),
 (14, 'Chris Bernard', 'bernarcd@potsdam.edu', '$2y$10$8aHrr6NWFjXF9Lr7wiVa1ecMGbHE3DeiOLRparMbntwtg.62hxjei', 'gap6fWbYIx4XuixgJ26qDbMkm2vk7BROHp0qNG5jMKRT2qk7B2abRYjkTTuk', '2017-12-11 10:06:13', '2017-12-15 09:09:55', '2017-12-15 09:09:55'),
 (15, 'Jim Bechtel', 'bechtejg@potsdam.edu', '$2y$10$M0yi/rXLEGuEWsM00OSeieJmeZhghIXc2xb0Ir8Teq4dZ/5aU05ee', 'VJ1H1NDy1syNUMuGFIaYg1zTM5wNNEJGO0pPQjJzQgsLnhSSYKUONw0m4Ch8', '2017-12-11 11:17:59', '2017-12-15 09:10:15', '2017-12-15 09:10:15'),
@@ -411,6 +411,7 @@ CREATE TABLE `user_graph_setup` (
   `graph_name` varchar(255) NOT NULL,
   `column_name` varchar(100) NOT NULL,
   `excell_name` varchar(100) NOT NULL,
+  `is_dashboard` int(11) DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -419,12 +420,15 @@ CREATE TABLE `user_graph_setup` (
 -- Dumping data for table `user_graph_setup`
 --
 
-INSERT INTO `user_graph_setup` (`id`, `user_id`, `graph_id`, `graph_name`, `column_name`, `excell_name`, `created_at`, `updated_at`) VALUES
-(6, 7, 1, 'playing', 'ab', 'd', '2018-03-22 15:05:50', '2018-03-22 15:05:50'),
-(7, 7, 1, 'playing', 'cd', 'sdf', '2018-03-22 15:05:50', '2018-03-22 15:05:50'),
-(8, 7, 1, 'playing', 'ef', 'sdf', '2018-03-22 15:05:50', '2018-03-22 15:05:50'),
-(9, 7, 2, 'sleeping1', 'dsf', 'sdf', '2018-03-22 15:05:50', '2018-03-22 15:05:50'),
-(10, 7, 2, 'sleeping1', 'sdfdsf', 'sadf', '2018-03-22 15:05:50', '2018-03-22 15:05:50');
+INSERT INTO `user_graph_setup` (`id`, `user_id`, `graph_id`, `graph_name`, `column_name`, `excell_name`, `is_dashboard`, `created_at`, `updated_at`) VALUES
+(18, 7, 1, 'sdfdsf3', 'sdf', '1', 1, '2018-03-28 12:21:26', '2018-03-28 12:21:26'),
+(19, 7, 2, 'sdfdsf4', 'asdsa', '1', 1, '2018-03-28 12:21:26', '2018-03-28 12:21:26'),
+(20, 7, 1, 'playing', 'ab', 'A', 0, '2018-03-28 13:18:11', '2018-03-28 13:18:11'),
+(21, 7, 1, 'playing', 'cd', 'B', 0, '2018-03-28 13:18:11', '2018-03-28 13:18:11'),
+(22, 7, 1, 'playing', 'ef', 'C', 0, '2018-03-28 13:18:11', '2018-03-28 13:18:11'),
+(23, 7, 2, 'Sleeping', 'gh', 'D', 0, '2018-03-28 13:18:11', '2018-03-28 13:18:11'),
+(24, 7, 2, 'Sleeping', 'ij', 'E', 0, '2018-03-28 13:18:11', '2018-03-28 13:18:11'),
+(25, 7, 2, 'Sleeping', 'kl', 'F', 0, '2018-03-28 13:18:11', '2018-03-28 13:18:11');
 
 --
 -- Indexes for dumped tables
@@ -543,7 +547,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `user_graph_setup`
 --
 ALTER TABLE `user_graph_setup`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- Constraints for dumped tables
