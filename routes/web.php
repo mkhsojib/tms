@@ -42,6 +42,8 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::post('upload', 'FileUploadController@import')->name('file.upload');
     Route::post('deletefile', 'FileUploadController@delete')->name('file.delete');
 
+    Route::get('coachDashBoardInfo/{id?}', 'HomeController@generateGraph')->name('coach.dashboardData');
+
 
 
 
