@@ -45,6 +45,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserGraph::class);
     }
+
+
+    public function fileLoger()
+    {
+        return $this->hasMany(FileUploadLoger::class);
+    }
     
     
     

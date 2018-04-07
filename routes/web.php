@@ -36,6 +36,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
    // Route::get('players', 'FileUploadController@selectPlayers');
     Route::any('players', 'FileUploadController@selectPlayers')->name('players');
     Route::any('trands', 'FileUploadController@trands')->name('trands');
+    Route::get('generatetrands', 'FileUploadController@geterateTandsData')->name('geterateTandsData');
 
 
 
