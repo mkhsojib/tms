@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 30, 2018 at 08:05 AM
+-- Generation Time: Apr 07, 2018 at 07:17 PM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.14
 
@@ -390,7 +390,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`, `last_login_time`) VALUES
 (1, 'Admin', 'admin@email.com', '$2y$10$DNGRjh4O08K9WVwBBMgD2.CL8YtH07r0KjtzYeT6yBOOSNfWbP7CG', '25W0bioiQbKZUqYEyRiD71rT8QZp4DHWuPdYCGcatn3tplMEIqxqMonzKVHs', '2017-11-15 08:32:25', '2018-03-30 01:51:17', '2018-03-30 01:51:17'),
-(7, 'tapos', 'tapos@email.com', '$2y$10$T0Bn1SEXNGRfv5RMaPkbAur7GU50HGa/7celE/IYTntxNDhUlJwr6', 'dFVGzzGJKgx4K4sTHRMxrvid9gb6chJqsMYwL8KZCEXRy3PrYIIC6wH5Qdtw', '2017-12-04 11:43:59', '2018-03-30 01:54:05', '2018-03-30 01:54:05'),
+(7, 'tapos', 'tapos@email.com', '$2y$10$T0Bn1SEXNGRfv5RMaPkbAur7GU50HGa/7celE/IYTntxNDhUlJwr6', 'dFVGzzGJKgx4K4sTHRMxrvid9gb6chJqsMYwL8KZCEXRy3PrYIIC6wH5Qdtw', '2017-12-04 11:43:59', '2018-04-07 10:25:06', '2018-04-07 10:25:06'),
 (9, 'sojib', 'sojib@email.com', '$2y$10$f731SOgc0T9zDS9l9b9ltOlwtRreVYXtCSF/9pwFuprG4qf92aclm', 'KbbSdWOPP7bgvX3g09rpAHUu5m5BXGvMjahSIA54F653rb7D3Hb228UC14ZK', '2017-12-04 11:54:50', '2018-03-28 13:27:35', '2018-03-28 13:27:35'),
 (12, 'Abrahm DiMarco', 'abrahm.dimarco@gmail.com', '$2y$10$xMJPJ4IyeQ.X/mXTths/J.vkXgQpk2lTg4XrRHyvWWbTHkhqPu17m', 'tGIzbxYQd0cBA5JPFHbrt1lJKhTleVlbSdcdvR5EqC3sOqXGmFtNgMYt0wMJ', '2017-12-10 20:56:16', '2017-12-15 04:11:56', '2017-12-15 04:11:56'),
 (14, 'Chris Bernard', 'bernarcd@potsdam.edu', '$2y$10$8aHrr6NWFjXF9Lr7wiVa1ecMGbHE3DeiOLRparMbntwtg.62hxjei', 'gap6fWbYIx4XuixgJ26qDbMkm2vk7BROHp0qNG5jMKRT2qk7B2abRYjkTTuk', '2017-12-11 10:06:13', '2017-12-15 09:09:55', '2017-12-15 09:09:55'),
@@ -421,16 +421,28 @@ CREATE TABLE `user_graph_setup` (
 --
 
 INSERT INTO `user_graph_setup` (`id`, `user_id`, `graph_id`, `graph_name`, `column_name`, `excell_name`, `is_dashboard`, `created_at`, `updated_at`) VALUES
-(20, 7, 1, 'playing', 'ab', 'A', 0, '2018-03-28 13:18:11', '2018-03-28 13:18:11'),
-(21, 7, 1, 'playing', 'cd', 'B', 0, '2018-03-28 13:18:11', '2018-03-28 13:18:11'),
-(22, 7, 1, 'playing', 'ef', 'C', 0, '2018-03-28 13:18:11', '2018-03-28 13:18:11'),
-(23, 7, 2, 'Sleeping', 'gh', 'D', 0, '2018-03-28 13:18:11', '2018-03-28 13:18:11'),
-(24, 7, 2, 'Sleeping', 'ij', 'E', 0, '2018-03-28 13:18:11', '2018-03-28 13:18:11'),
-(25, 7, 2, 'Sleeping', 'kl', 'F', 0, '2018-03-28 13:18:11', '2018-03-28 13:18:11'),
 (26, 7, 1, 'Extra Strength', 'Extra Strength', 'r', 1, '2018-03-29 12:49:01', '2018-03-29 12:49:01'),
 (27, 7, 2, 'Extra Cardios', 'Extra Cardios', 't', 1, '2018-03-29 12:49:01', '2018-03-29 12:49:01'),
 (28, 7, 3, 'Extra Skills', 'Extra Skills', 'y', 1, '2018-03-29 12:49:01', '2018-03-29 12:49:01'),
-(29, 7, 4, 'Watch Videos', 'Watch Videos', 'z', 1, '2018-03-29 12:49:01', '2018-03-29 12:49:01');
+(29, 7, 4, 'Watch Videos', 'Watch Videos', 'z', 1, '2018-03-29 12:49:01', '2018-03-29 12:49:01'),
+(30, 7, 1, 'Nutrition', 'Breakfast', 'f', 0, '2018-04-05 22:14:40', '2018-04-05 22:14:40'),
+(31, 7, 1, 'Nutrition', 'Lunch', 'g', 0, '2018-04-05 22:14:40', '2018-04-05 22:14:40'),
+(32, 7, 1, 'Nutrition', 'Dinner', 'h', 0, '2018-04-05 22:14:40', '2018-04-05 22:14:40'),
+(33, 7, 1, 'Nutrition', 'Total Meats', 'i', 0, '2018-04-05 22:14:40', '2018-04-05 22:14:40'),
+(34, 7, 1, 'Nutrition', 'Nutrition', 'e', 0, '2018-04-05 22:14:40', '2018-04-05 22:14:40'),
+(35, 7, 2, 'Sleep', 'Hour of Sleep', 'c', 0, '2018-04-05 22:14:40', '2018-04-05 22:14:40'),
+(36, 7, 2, 'Sleep', 'Naps', 'd', 0, '2018-04-05 22:14:40', '2018-04-05 22:14:40'),
+(37, 7, 3, 'Stress', 'Total Stress Level', 'm', 0, '2018-04-05 22:14:40', '2018-04-05 22:14:40'),
+(38, 7, 3, 'Stress', 'Stress from Hockey', 'n', 0, '2018-04-05 22:14:40', '2018-04-05 22:14:40'),
+(39, 7, 3, 'Stress', 'Stress from School', 'o', 0, '2018-04-05 22:14:40', '2018-04-05 22:14:40'),
+(40, 7, 3, 'Stress', 'Stress from Personal', 'p', 0, '2018-04-05 22:14:40', '2018-04-05 22:14:40'),
+(41, 7, 4, 'Extra Work', 'Extra Strength', 'r', 0, '2018-04-05 22:14:40', '2018-04-05 22:14:40'),
+(42, 7, 4, 'Extra Work', 'Extra Cardio', 't', 0, '2018-04-05 22:14:40', '2018-04-05 22:14:40'),
+(43, 7, 4, 'Extra Work', 'Extra Skill', 'y', 0, '2018-04-05 22:14:40', '2018-04-05 22:14:40'),
+(44, 7, 4, 'Extra Work', 'Watch Video', 'z', 0, '2018-04-05 22:14:40', '2018-04-05 22:14:40'),
+(45, 7, 5, 'Relationship', 'Relationship Teammates', 'af', 0, '2018-04-05 22:14:40', '2018-04-05 22:14:40'),
+(46, 7, 5, 'Relationship', 'Relationship Staff', 'ag', 0, '2018-04-05 22:14:40', '2018-04-05 22:14:40'),
+(47, 7, 5, 'Relationship', 'Relationship Personal Life', 'ah', 0, '2018-04-05 22:14:40', '2018-04-05 22:14:40');
 
 --
 -- Indexes for dumped tables
@@ -549,7 +561,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `user_graph_setup`
 --
 ALTER TABLE `user_graph_setup`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- Constraints for dumped tables

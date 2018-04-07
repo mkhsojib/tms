@@ -106,20 +106,16 @@ class FileUploadController extends Controller
 
     public function selectPlayers(Request $request)
     {
-        $players = Player::select(DB::raw('distinct jersey_number as id'))
-            ->whereRaw("user_id = " . Auth::user()->id)
-            ->groupBy('jersey_number')
-            ->orderBy('jersey_number', 'asc')
+        $fileUploadInformation = Auth::user()->fileLoger()->orderBy('id', 'asc')->get();
+        $weekId = implode(",", $fileUploadInformation->pluck('id')->toArray());
+        $players = Player::select(DB::raw('distinct b as id'))
+            ->where('is_question', 0)
+            ->whereRaw("file_upload_loger in ({$weekId})")
+            ->groupBy('b')
+            ->orderBy('b', 'asc')
             ->get();
-        $player_information = null;
-        if ($request->has('player_id')) {
-            $player_information = Player::where('jersey_number', $request->player_id)
-                //->groupBy('wk')
-                ->whereRaw("user_id = " . Auth::user()->id)
-                ->orderBy('week_id', 'asc')
-                ->get();
-        }
-        return view('partials.players')->with(compact(['players', 'player_information']));
+
+        return view('partials.players')->with(compact(['players']));
     }
 
     public function trands(Request $request)
@@ -143,6 +139,33 @@ class FileUploadController extends Controller
         $player_information = Player::select(DB::raw($msg))
             //->where('user_id',Auth::user()->id)
             ->where('is_question', 0)
+            ->whereRaw("file_upload_loger in ({$weekIdImplode})")
+            ->groupBy('file_upload_loger')
+            ->orderBy('file_upload_loger', 'asc')
+            ->get();
+        // dd($player_information);
+        return $player_information->toArray();
+    }
+
+
+
+    private function generateQuerySingleResult($keysArray, $weekId,$jurseyNumber)
+    {
+        $msg = "";
+        foreach ($keysArray as $key => $item) {
+            if ($key == (count($keysArray) - 1)) {
+                $msg .= "round(avg({$item}),2) as {$item}";
+            } else {
+                $msg .= "round(avg({$item}),2) as {$item},";
+            }
+
+        }
+        $weekIdImplode = implode(",", $weekId);
+
+        $player_information = Player::select(DB::raw($msg))
+            //->where('user_id',Auth::user()->id)
+            ->where('is_question', 0)
+            ->where('b',$jurseyNumber)
             ->whereRaw("file_upload_loger in ({$weekIdImplode})")
             ->groupBy('file_upload_loger')
             ->orderBy('file_upload_loger', 'asc')
@@ -192,41 +215,61 @@ class FileUploadController extends Controller
                 $aGraph['series'] = $treeData;
                 $aGraph['data'] = $latestgraphInformation;
                 $aGraph['show'] = false;
-                $aGraph['options'] = [
-//                    "responsive" => true,
-                    "title" => [
-                        "display" => true,
-                        "text" => $aData['title']
-                    ],
-                    "legend" => [
-                        "display" => true
-                    ],
-//                    "tooltips" => [
-//                        "mode" => 'index',
-//                        "intersect" => false
-//                    ],
-//                    "hover" => [
-//                        "mode" => 'nearest',
-//                        "intersect" => true
-//                    ],
-
-//                    "scales" => [
-//                        "xAxes" => [
-//                            "display" => true,
-//                            "scaleLabel" => [
-//                                "display" => true,
-//                                "labelString" => 'Week',
-//                            ]
-//                        ],
-//                        "yAxes" => [
-//                            "ticks" => [
-//                                "beginAtZero" => true
-//                            ]
-//                        ]
-//                    ]
 
 
-                ];
+                $allChart[] = $aGraph;
+            }
+
+        }
+
+        echo json_encode(['generated_data' => $allChart]);
+    }
+
+
+
+
+    public function geterateTandsDataSinglePlayer(Request $request)
+    {
+
+        $userData = Auth::user()->graphs()->where('is_dashboard', 0)->get();
+
+        $generateData = [];
+        if (count($userData) > 0) {
+
+            $grouped = $userData->groupBy('graph_id')->values()->all();
+            $index = 0;
+            foreach ($grouped as $key => $aData) {
+                $info = ['title' => $aData[$index]['graph_name'], 'is_dashboard' => $aData[$index]['is_dashboard'],
+                    'numberOfKey' => count($aData), 'ownData' => [['name' => $aData[$index]['column_name'], 'alphabet' => $aData[$index]['excell_name']]]];
+                for ($i = 1; $i < count($aData); $i++) {
+                    $info['ownData'][] = ['name' => $aData[$i]['column_name'], 'alphabet' => $aData[$i]['excell_name']];
+                }
+                $generateData[] = $info;
+
+
+            }
+
+            $fileUploadInformation = Auth::user()->fileLoger()->orderBy('id', 'asc')->get();
+            $weekName = $fileUploadInformation->pluck('week_name')->toArray();
+            $weekId = $fileUploadInformation->pluck('id')->toArray();
+            //  dd($weekName);
+            $allChart = [];
+
+
+            foreach ($generateData as $aData) {
+                $aGraph = ["title" => $aData['title'], "labels" => $weekName];
+                $treeData = collect($aData['ownData'])->pluck('name')->toArray();
+                $alphabet = collect($aData['ownData'])->pluck('alphabet')->toArray();
+                $graphInformation = $this->generateQuerySingleResult($alphabet, $weekId,$request->id);
+                $latestgraphInformation = [];
+                foreach ($graphInformation as $aGraphInfo) {
+                    $latestgraphInformation[] = array_values($aGraphInfo);
+                }
+
+                $aGraph['series'] = $treeData;
+                $aGraph['data'] = $latestgraphInformation;
+                $aGraph['show'] = false;
+
 
                 $allChart[] = $aGraph;
             }
