@@ -59,61 +59,67 @@
                         <span class="title">Comments</span>
                     </a>
                 </li>
-                @endcan
-                    {{-- for players --}}
+            @endcan
+            {{-- for players --}}
 
 
-                    {{--<li>--}}
-                    {{--<a href="{{ route('bar-chart.index') }}">--}}
-                    {{--<i class="fa fa-bar-chart"></i>--}}
-                    {{--<span class="title">Player Chart</span>--}}
-                    {{--</a>--}}
-                    {{--</li>--}}
+            {{--<li>--}}
+            {{--<a href="{{ route('bar-chart.index') }}">--}}
+            {{--<i class="fa fa-bar-chart"></i>--}}
+            {{--<span class="title">Player Chart</span>--}}
+            {{--</a>--}}
+            {{--</li>--}}
 
 
-                    @hasrole('coach')
-                    <li>
-                        <a href="{{ route('admin.players') }}">
-                            <i class="fa fa-bar-chart"></i>
-                            <span class="title">Players</span>
-                        </a>
-                    </li>
+            @hasrole('coach')
+            <li>
+                <a href="{{ route('admin.players') }}">
+                    <i class="fa fa-bar-chart"></i>
+                    <span class="title">Players</span>
+                </a>
+            </li>
 
-                    {{-- for trends --}}
-                    <li>
-                        <a href="{{ route('admin.trands') }}">
-                            <i class="fa fa-line-chart"></i>
-                            <span class="title">Trends</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.users.setup',[Auth::id()]) }}">
-                            <i class="fa fa-line-chart"></i>
-                            <span class="title">Graph Setup</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.users.dashboardGraphsetup',[Auth::id()]) }}">
-                            <i class="fa fa-line-chart"></i>
-                            <span class="title">DashBoard Graph</span>
-                        </a>
-                    </li>
-                    @endrole
+            {{-- for trends --}}
+            <li>
+                <a href="{{ route('admin.trands') }}">
+                    <i class="fa fa-line-chart"></i>
+                    <span class="title">Trends</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('admin.users.setup',[Auth::id()]) }}">
+                    <i class="fa fa-line-chart"></i>
+                    <span class="title">Graph Setup</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('admin.comment.show') }}">
+                    <i class="fa fa-line-chart"></i>
+                    <span class="title">Show Comments</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('admin.users.dashboardGraphsetup',[Auth::id()]) }}">
+                    <i class="fa fa-line-chart"></i>
+                    <span class="title">DashBoard Graph</span>
+                </a>
+            </li>
+            @endrole
 
 
-                    <li class="{{ $request->segment(1) == 'change_password' ? 'active' : '' }}">
-                        <a href="{{ route('auth.change_password') }}">
-                            <i class="fa fa-key"></i>
-                            <span class="title">Change password</span>
-                        </a>
-                    </li>
+            <li class="{{ $request->segment(1) == 'change_password' ? 'active' : '' }}">
+                <a href="{{ route('auth.change_password') }}">
+                    <i class="fa fa-key"></i>
+                    <span class="title">Change password</span>
+                </a>
+            </li>
 
-                    <li>
-                        <a href="#logout" onclick="$('#logout').submit();">
-                            <i class="fa fa-arrow-left"></i>
-                            <span class="title">@lang('global.app_logout')</span>
-                        </a>
-                    </li>
+            <li>
+                <a href="#logout" onclick="$('#logout').submit();">
+                    <i class="fa fa-arrow-left"></i>
+                    <span class="title">@lang('global.app_logout')</span>
+                </a>
+            </li>
         </ul>
     </section>
 </aside>

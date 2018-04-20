@@ -106,9 +106,9 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        return view('home.coach_comments');
     }
 
     /**
@@ -157,7 +157,19 @@ class CommentController extends Controller
 
     public function coachWeekList($id)
     {
-        $weekList = FileUploadLoger::where('user_id',$id)->get();
-        echo json_encode(['success'=>true,'weeklist'=>$weekList]);
+        
+        if(!Auth::user()->hasRole('coach')){
+            $weekList = FileUploadLoger::where('user_id',$id)->get();
+            echo json_encode(['success'=>true,'weeklist'=>$weekList]);
+        }else{
+            $weekList = FileUploadLoger::where('user_id',Auth::user()->id)->get();
+            $comments = [];
+            if(count($weekList)>0){
+                $comments = Comments::where('file_upload_loger_id',$weekList[0]['id'])->get();
+            }
+
+            echo json_encode(['success'=>true,'weeklist'=>$weekList,'comments'=>$comments]);
+        }
+
     }
 }

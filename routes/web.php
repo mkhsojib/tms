@@ -56,6 +56,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::get('allcoachWeekList/{id?}', 'CommentController@coachWeekList')->name('comment.coachWeeklist');
     Route::post('storeComment', 'CommentController@storeExcell')->name('comment.insert');
     Route::post('addComments', 'CommentController@store')->name('comment.store');
+    Route::get('showComments', 'CommentController@show')->name('comment.show');
 
 
 });
