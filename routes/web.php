@@ -46,8 +46,9 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
 
     Route::get('coachDashBoardInfo/{id?}', 'HomeController@generateGraph')->name('coach.dashboardData');
 
+    Route::resource('comment', 'Admin\CommentController');
 
-
+    Route::get('comment/', 'CommentController@index')->name('comment');
 
 });
 
