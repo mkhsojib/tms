@@ -20,6 +20,7 @@ class FileUploadController extends Controller
 
     public $information = [];
     public $numberOfColumn = 0;
+    private $weekName;
 
     public function index()
     {
@@ -43,13 +44,20 @@ class FileUploadController extends Controller
         return $number;
     }
 
+    private function columnNumber($col){
 
+        $col = str_pad($col,2,'0',STR_PAD_LEFT);
+        $i = ($col{0} == '0') ? 0 : (ord($col{0}) - 64) * 26;
+        $i += ord($col{1}) - 64;
+
+        return $i-1;
+
+    }
     public function import(Request $request)
     {
         $this->validate($request, array(
             'file' => 'required',
             'team_member_id' => 'required',
-            'week_name' => 'required'
         ));
 
         $uploadedDate = Carbon::now()->toDateString();
@@ -70,7 +78,16 @@ class FileUploadController extends Controller
                             if ($index == 1) {
                                 $insertedData["is_question"] = 1;
                             }
+
                             foreach ($row->getCellIterator() as $key => $cell) {
+                                if($index==2 && $cell->getColumn()=="A"){
+                                    $this->weekName = $cell->getCalculatedValue();
+                                }
+
+                                if($this->columnNumber($key)>102){
+                                    break;
+                                }
+
                                 // dd($cell->getColumn(),$cell->getCalculatedValue());
                                 $insertedData[strtolower($cell->getColumn())] = $cell->getCalculatedValue();
                             }
@@ -86,7 +103,7 @@ class FileUploadController extends Controller
                 if (!empty($this->information)) {
 
 
-                    $fileUploadInfo = FileUploadLoger::create(['week_name' => $request->week_name, 'user_id' => $request->team_member_id, 'uploaded_time' => $uploadedDate]);
+                    $fileUploadInfo = FileUploadLoger::create(['week_name' => $this->weekName, 'user_id' => $request->team_member_id, 'uploaded_time' => $uploadedDate]);
                     if ($fileUploadInfo) {
                         // Player::where('jersey_number', 0)->delete();
                         $fileUploadInfo->playersInformation()->saveMany($this->information);
@@ -285,7 +302,7 @@ class FileUploadController extends Controller
 
         $info = FileUploadLoger::find($request->id);
         $info->delete();
-        Player::where('week_id', $info->week_id)->where('user_id', $info->user_id)->delete();
+        Player::where('file_upload_loger', $info->id)->delete();
 
         $response = array(
             'status' => true

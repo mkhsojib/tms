@@ -103,11 +103,11 @@
 
             jQuery("#changeWeek").on('change',function () {
                 var optionSelected = jQuery("option:selected", this).val();
-                $scope.generateMyData(optionSelected);
+                $scope.generateMyData(optionSelected,true);
             });
 
 
-            $scope.generateMyData = function (id) {
+            $scope.generateMyData = function (id,statusData) {
                 var url = "{{ route('admin.coach.dashboardData') }}";
                 if(id !== undefined){
                     url += "/"+id;
@@ -129,8 +129,13 @@
                         $scope.excellDataHeader = info.excellData[0];
                         $scope.excellDataBody = info.excellData;
                         $scope.excellDataBody.shift();
-                        $scope.weekList = info.week_list;
-                        $scope.selectweek = $scope.weekList[0];
+
+                        if (statusData === undefined) {
+                            $scope.weekList = info.week_list;
+                            $scope.selectweek = $scope.weekList[0];
+                        }
+
+
                         console.log("my body", $scope.excellDataBody);
 
                     }
