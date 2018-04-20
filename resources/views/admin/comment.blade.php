@@ -42,7 +42,8 @@
 
         <div ng-show="option == 'excel'" class="row" style="margin-top: 20px;">
             <div class="col-md-8 col-md-offset-2">
-                <form class="form-horizontal" name="excelUploadform" ng-submit="excelUploadSubmitForm()" role="form">
+                <form class="form-horizontal" name="excelUploadform" method="POST" action="{{route('admin.comment.insert')}}" enctype="multipart/form-data" role="form">
+                    <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
                     <fieldset>
                         <!-- Form Name -->
                         <legend>Excel Upload Option</legend>
@@ -51,7 +52,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="textinput">Upload Excel</label>
                             <div class="col-sm-9">
-                                <input type="file" name="uploadExcel" ng-model="excelUploadVM.uploadExcel" placeholder="Upload Excel" class="form-control">
+                                <input type="file" name="file" ng-model="excelUploadVM.uploadExcel" placeholder="Upload Excel" class="form-control">
                             </div>
                         </div>
 
@@ -59,12 +60,10 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="textinput">Select Coach</label>
                             <div class="col-sm-9">
-                                <select name="coachId" ng-model="excelUploadVM.coachId" class="form-control">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
+                                <select ng-change="getCoach()" name="coachId" id="mySelect"
+                                        ng-options="option.name for option in CoachList track by option.id"
+                                        ng-model="excelUploadVM.coachId" class="form-control">
+                                    <option value="">Select a Coach</option>
                                 </select>
                             </div>
                         </div>
@@ -73,12 +72,10 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="textinput">Select File</label>
                             <div class="col-sm-9">
-                                <select name="fileUploadLogerId" ng-model="excelUploadVM.fileUploadLogerId" class="form-control">
-                                    <option>Week1</option>
-                                    <option>Week1</option>
-                                    <option>Week1</option>
-                                    <option>Week1</option>
-                                    <option>Week1</option>
+                                <select ng-change="getCoach()" name="weekId" id="mySelect"
+                                        ng-options="option.week_name for option in WeekList track by option.id"
+                                        ng-model="excelUploadVM.weekId" class="form-control">
+                                    <option value="">Select a TimePreod</option>
                                 </select>
                             </div>
                         </div>
@@ -86,7 +83,6 @@
                             <div class="col-sm-offset-2 col-sm-10">
                                 <div class="pull-right">
                                     <button type="submit" class="btn btn-primary">Save</button>
-                                    <button type="submit" class="btn btn-default">Cancel</button>
                                 </div>
                             </div>
                         </div>
@@ -106,12 +102,10 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="textinput">Select Coach</label>
                             <div class="col-sm-9">
-                                <select name="coachId" ng-model="normalCommentVM.coachId" class="form-control">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
+                                <select ng-change="getCoach()" name="coachId" id="mySelect"
+                                        ng-options="option.name for option in CoachList track by option.id"
+                                        ng-model="excelUploadVM.coachId" class="form-control">
+                                    <option value="">Select a Coach</option>
                                 </select>
                             </div>
                         </div>
@@ -120,12 +114,10 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label" for="textinput">Select File</label>
                             <div class="col-sm-9">
-                                <select name="fileUploadLogerId" ng-model="normalCommentVM.fileUploadLogerId" class="form-control">
-                                    <option>Week1</option>
-                                    <option>Week1</option>
-                                    <option>Week1</option>
-                                    <option>Week1</option>
-                                    <option>Week1</option>
+                                <select ng-change="getCoach()" name="weekId" id="mySelect"
+                                        ng-options="option.week_name for option in WeekList track by option.id"
+                                        ng-model="excelUploadVM.weekId" class="form-control">
+                                    <option value="">Select a TimePreod</option>
                                 </select>
                             </div>
                         </div>
@@ -133,7 +125,7 @@
                         <!-- Text input-->
                         <div class="form-group">
                             <div class="col-sm-9 col-sm-offset-3">
-                                <button class="btn btn-success" ng-click="addNewChoice()">Add fields</button>
+                                <button class="btn btn-success" ng-click="addNewChoice($event)">Add Comment</button>
                             </div>
                         </div>
 
@@ -142,12 +134,12 @@
                         <!-- Text input-->
                         <div data-ng-repeat="field in choiceSet.choices track by $index">
                             <div class="form-group">
-                                <label class="col-sm-3 control-label" for="textinput">Message</label>
+                                <label class="col-sm-3 control-label" for="textinput">Comments</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" ng-model=" choiceSet.choices[$index]" name="" placeholder="Enter mobile number">
+                                    <input type="text" class="form-control" ng-model="choiceSet.choices[$index]" name="" placeholder="Enter Comment Here">
                                 </div>
                                 <div class="col-sm-1">
-                                    <button class="remove" ng-click="removeChoice($index)">-</button>
+                                    <button class="remove" ng-click="removeChoice($event,$index)">-</button>
                                 </div>
                             </div>
                         </div>
@@ -158,7 +150,6 @@
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
                                 <div class="pull-right">
-                                    <button type="submit" class="btn btn-default">Cancel</button>
                                     <button type="submit" class="btn btn-primary">Save</button>
                                 </div>
                             </div>
@@ -177,35 +168,94 @@
         // var jQuery = $.noConflict();
 
         angular.module('tms').controller("commentController", function ($scope, $http) {
+
+
+            $scope.CoachList = [];
+            $scope.WeekList = [];
+
+            $http({
+                method: "get",
+                url:  "{{ route('admin.comment.coach') }}",
+            }).then(function mySuccess(response) {
+                var info = response.data;
+                if (info.success) {
+
+                    $scope.CoachList = info.coachList;
+                }
+                console.log(response.data);
+
+            }, function myError(response) {
+
+            });
+
+
+            $scope.getCoach = function(){
+                console.log($scope.excelUploadVM.coachId);
+                var url = "{{ route('admin.comment.coachWeeklist') }}/"+$scope.excelUploadVM.coachId.id;
+                $http({
+                    method: "get",
+                    url:  url
+                }).then(function mySuccess(response) {
+                    var info = response.data;
+                    if (info.success) {
+
+                        $scope.WeekList = info.weeklist;
+                    }else{
+                        alert("no updated data");
+                    }
+                    console.log(response.data);
+
+                }, function myError(response) {
+
+                });
+            };
             $scope.option = 'excel';
 
             $scope.choiceSet = {choices: []};
             $scope.quest = {};
 
             $scope.choiceSet.choices = [];
-            $scope.addNewChoice = function () {
+            $scope.addNewChoice = function (event) {
                 $scope.choiceSet.choices.push('');
+                event.preventDefault();
             };
 
-            $scope.removeChoice = function (z) {
-                //var lastItem = $scope.choiceSet.choices.length - 1;
+            $scope.removeChoice = function (event,z) {
                 $scope.choiceSet.choices.splice(z,1);
+                event.preventDefault();
             };
+            
+            
+            $scope.normalCommentSubmir = function () {
+                var coachId = $scope.excelUploadVM.coachId.id;
+                var FileUploadId = $scope.excelUploadVM.weekId.id;
+                var comments = $scope.choiceSet.choices;
+
+                $http({
+                    method: "post",
+                    url:  "{{ route('admin.comment.store') }}",
+                    data: JSON.stringify({
+                        coachId : coachId,
+                        fileUploadId : FileUploadId,
+                        comments:comments
+                    })
+                }).then(function mySuccess(response) {
+                    var info = response.data;
+                    if (info.success) {
+
+                        alert("comments insert successfully");
+                        $scope.choiceSet.choices = [];
+                        $scope.excelUploadVM = {};
+                    }else{
+                        alert("something wrong");
+                    }
 
 
+                }, function myError(response) {
 
+                });
+            }
 
-            /*$scope.messages = [{id: 'message1'}];
-
-            $scope.addNewMessage = function() {
-                var newItemNo = $scope.messages.length+1;
-                $scope.messages.push({'id':'message'+newItemNo});
-            };
-
-            $scope.removeMessage = function() {
-                var lastItem = $scope.messages.length-1;
-                $scope.messages.splice(lastItem);
-            };*/
         });
 
     </script>

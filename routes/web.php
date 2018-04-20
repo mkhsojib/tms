@@ -46,9 +46,17 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
 
     Route::get('coachDashBoardInfo/{id?}', 'HomeController@generateGraph')->name('coach.dashboardData');
 
-    Route::resource('comment', 'Admin\CommentController');
+   // Route::resource('comment', 'Admin\CommentController');
 
     Route::get('comment/', 'CommentController@index')->name('comment');
+
+    // get all coach
+
+    Route::get('allcoach/', 'CommentController@coachList')->name('comment.coach');
+    Route::get('allcoachWeekList/{id?}', 'CommentController@coachWeekList')->name('comment.coachWeeklist');
+    Route::post('storeComment', 'CommentController@storeExcell')->name('comment.insert');
+    Route::post('addComments', 'CommentController@store')->name('comment.store');
+
 
 });
 

@@ -51,6 +51,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(FileUploadLoger::class);
     }
+
+    /**
+     * defer to the Spatie package for role scope
+     */
+    public function scopeHasRoles(\Illuminate\Database\Eloquent\Builder $query, $roles)
+    {
+        return $this->scopeRole($query, $roles);
+    }
     
     
     
