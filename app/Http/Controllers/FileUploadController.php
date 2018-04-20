@@ -18,9 +18,8 @@ class FileUploadController extends Controller
 {
 
 
-
     public $information = [];
-    public $numberOfColumn= 0;
+    public $numberOfColumn = 0;
 
     public function index()
     {
@@ -29,20 +28,20 @@ class FileUploadController extends Controller
 
     }
 
-    private function getIndex ($string) {
+    private function getIndex($string)
+    {
         $string = strtoupper($string);
         $length = strlen($string);
         $number = 0;
         $level = 1;
-        while ($length >= $level ) {
+        while ($length >= $level) {
             $char = $string[$length - $level];
             $c = ord($char) - 64;
-            $number += $c * (26 ** ($level-1));
+            $number += $c * (26 ** ($level - 1));
             $level++;
         }
         return $number;
     }
-
 
 
     public function import(Request $request)
@@ -59,7 +58,7 @@ class FileUploadController extends Controller
             $extension = File::extension($request->file->getClientOriginalName());
             if ($extension == "xlsx" || $extension == "xls" || $extension == "csv") {
                 $path = $request->file->getRealPath();
-                Excel::load($path, function ($reader) use ($request,$uploadedDate) {
+                Excel::load($path, function ($reader) use ($request, $uploadedDate) {
                     $excel = $reader->getExcel();
                     $userId = $request->team_member_id;
                     foreach ($excel->getWorksheetIterator() as $sheet) {
@@ -67,12 +66,12 @@ class FileUploadController extends Controller
                         $maxRow = $sheet->getHighestRow();
 
                         foreach ($sheet->getRowIterator() as $index => $row) {
-                            $insertedData = new Player( ["user_id"=>$userId]);
-                            if($index==1){
-                                $insertedData["is_question"]=1;
+                            $insertedData = new Player(["user_id" => $userId]);
+                            if ($index == 1) {
+                                $insertedData["is_question"] = 1;
                             }
-                            foreach ($row->getCellIterator() as $key=>$cell){
-                               // dd($cell->getColumn(),$cell->getCalculatedValue());
+                            foreach ($row->getCellIterator() as $key => $cell) {
+                                // dd($cell->getColumn(),$cell->getCalculatedValue());
                                 $insertedData[strtolower($cell->getColumn())] = $cell->getCalculatedValue();
                             }
 
@@ -84,15 +83,12 @@ class FileUploadController extends Controller
                 });
 
 
-
-
                 if (!empty($this->information)) {
 
 
-
-                   $fileUploadInfo =  FileUploadLoger::create(['week_name' => $request->week_name, 'user_id' => $request->team_member_id, 'uploaded_time' => $uploadedDate]);
+                    $fileUploadInfo = FileUploadLoger::create(['week_name' => $request->week_name, 'user_id' => $request->team_member_id, 'uploaded_time' => $uploadedDate]);
                     if ($fileUploadInfo) {
-                       // Player::where('jersey_number', 0)->delete();
+                        // Player::where('jersey_number', 0)->delete();
                         $fileUploadInfo->playersInformation()->saveMany($this->information);
                         Session::flash('success', 'Your Data has successfully imported');
                     } else {
@@ -110,75 +106,177 @@ class FileUploadController extends Controller
 
     public function selectPlayers(Request $request)
     {
-        $players = Player::select(DB::raw('distinct jersey_number as id'))
-            ->whereRaw("user_id = " . Auth::user()->id)
-            ->groupBy('jersey_number')
-            ->orderBy('jersey_number', 'asc')
+        $fileUploadInformation = Auth::user()->fileLoger()->orderBy('id', 'asc')->get();
+        $weekId = implode(",", $fileUploadInformation->pluck('id')->toArray());
+        $players = Player::select(DB::raw('distinct b as id'))
+            ->where('is_question', 0)
+            ->whereRaw("file_upload_loger in ({$weekId})")
+            ->groupBy('b')
+            ->orderBy('b', 'asc')
             ->get();
-        $player_information = null;
-        if ($request->has('player_id')) {
-            $player_information = Player::where('jersey_number', $request->player_id)
-                //->groupBy('wk')
-                ->whereRaw("user_id = " . Auth::user()->id)
-                ->orderBy('week_id', 'asc')
-                ->get();
-        }
-        return view('partials.players')->with(compact(['players', 'player_information']));
+
+        return view('partials.players')->with(compact(['players']));
     }
 
     public function trands(Request $request)
     {
-        $player_information = Player::select(DB::raw(
-            "   concat('week ',week_id) as wk,
-                round(avg(`hours_of_sleep`),2) as hours_of_sleep, 
-                round(avg(`how_many_naps`),2) as how_many_naps, 
-                round(avg(`nutrition`),2) as nutrition, 
-                round(avg(`breakfast`),2) as breakfast, 
-                round(avg(`lunch`),2) as lunch,
-                round(avg(`supper`),2) as supper,
-                round(avg(`total_meals`),2) as total_meals, 
-                round(avg(`pre_game_snacks`),2) as pre_game_snacks, 
-                round(avg(`post_game_snack_refuel`),2) as post_game_snack_refuel, 
-                round(avg(`hydration`),2) as hydration,
-                round(avg(`stress_level`),2) as stress_level,
-                round(avg(`stress_from_hockey`),2) as stress_from_hockey,
-                round(avg(`stress_from_school`),2) as stress_from_school,
-                round(avg(`stress_from_personal`),2) as stress_from_personal, 
-                round(avg(`strength_workouts`),2) as strength_workouts,   
-                round(avg(`cardio_workouts`),2) as cardio_workouts, 	 
-                round(avg(`performance_in_practice`),2) as performance_in_practice,  
-                round(avg(`focus_during_practice`),2) as focus_during_practice, 
-                round(avg(`effort_during_practice`),2) as effort_during_practice, 
-                round(avg(`execution_during_practice`),2) as execution_during_practice, 	 	 
-                round(avg(`game_performance`),2) as game_performance, 
-                round(avg(`offensive_game_performance`),2) as offensive_game_performance, 
-                round(avg(`defensive_game_performance`),2) as defensive_game_performance, 
-                round(avg(`special_teams_game_performance`),2) as special_teams_game_performance,
-                round(avg(`academic_progress`),2) as academic_progress,
-                round(avg(`relationship_teammates`),2) as relationship_teammates,
-                round(avg(`relationship_staff`),2) as relationship_staff, 
-                round(avg(`relationships_personal_life`),2) as relationships_personal_life,
-                count(id) as total, 
-                sum(if(extra_strength='Yes',1,0)) as extra_strength,
-                sum(if(extra_skill='Yes',1,0))as extra_skill,
-                sum(if(extra_cardio='Yes',1,0))as   extra_cardio, 
-                sum(if(watch_video='Yes',1,0))as watch_video
-            "
+        return view('partials.trends');
+    }
+
+    private function generateQueryResult($keysArray, $weekId)
+    {
+        $msg = "";
+        foreach ($keysArray as $key => $item) {
+            if ($key == (count($keysArray) - 1)) {
+                $msg .= "round(avg({$item}),2) as {$item}";
+            } else {
+                $msg .= "round(avg({$item}),2) as {$item},";
+            }
+
+        }
+        $weekIdImplode = implode(",", $weekId);
+
+        $player_information = Player::select(DB::raw($msg))
+            //->where('user_id',Auth::user()->id)
+            ->where('is_question', 0)
+            ->whereRaw("file_upload_loger in ({$weekIdImplode})")
+            ->groupBy('file_upload_loger')
+            ->orderBy('file_upload_loger', 'asc')
+            ->get();
+        // dd($player_information);
+        return $player_information->toArray();
+    }
 
 
-        ))->whereRaw("user_id = " . Auth::user()->id . " and wk!='null'")->groupBy('week_id')->orderBy('week_id','asc')->get();
 
-        $stranth_meter = ["extra_strength" => [], "extra_skill" => [], "extra_cardio" => [], "watch_video" => []];
-        foreach ($player_information as $player) {
+    private function generateQuerySingleResult($keysArray, $weekId,$jurseyNumber)
+    {
+        $msg = "";
+        foreach ($keysArray as $key => $item) {
+            if ($key == (count($keysArray) - 1)) {
+                $msg .= "round(avg({$item}),2) as {$item}";
+            } else {
+                $msg .= "round(avg({$item}),2) as {$item},";
+            }
 
-            $stranth_meter["extra_strength"][] = number_format(($player->extra_strength * 100) / $player->total, 2);
-            $stranth_meter["extra_skill"][] = number_format(($player->extra_skill * 100) / $player->total, 2);
-            $stranth_meter["extra_cardio"][] = number_format(($player->extra_cardio * 100) / $player->total, 2);
-            $stranth_meter["watch_video"][] = number_format(($player->watch_video * 100) / $player->total, 2);
+        }
+        $weekIdImplode = implode(",", $weekId);
+
+        $player_information = Player::select(DB::raw($msg))
+            //->where('user_id',Auth::user()->id)
+            ->where('is_question', 0)
+            ->where('b',$jurseyNumber)
+            ->whereRaw("file_upload_loger in ({$weekIdImplode})")
+            ->groupBy('file_upload_loger')
+            ->orderBy('file_upload_loger', 'asc')
+            ->get();
+        // dd($player_information);
+        return $player_information->toArray();
+    }
+
+    public function geterateTandsData(Request $request)
+    {
+
+        $userData = Auth::user()->graphs()->where('is_dashboard', 0)->get();
+
+        $generateData = [];
+        if (count($userData) > 0) {
+
+            $grouped = $userData->groupBy('graph_id')->values()->all();
+            $index = 0;
+            foreach ($grouped as $key => $aData) {
+                $info = ['title' => $aData[$index]['graph_name'], 'is_dashboard' => $aData[$index]['is_dashboard'],
+                    'numberOfKey' => count($aData), 'ownData' => [['name' => $aData[$index]['column_name'], 'alphabet' => $aData[$index]['excell_name']]]];
+                for ($i = 1; $i < count($aData); $i++) {
+                    $info['ownData'][] = ['name' => $aData[$i]['column_name'], 'alphabet' => $aData[$i]['excell_name']];
+                }
+                $generateData[] = $info;
+
+
+            }
+
+            $fileUploadInformation = Auth::user()->fileLoger()->orderBy('id', 'asc')->get();
+            $weekName = $fileUploadInformation->pluck('week_name')->toArray();
+            $weekId = $fileUploadInformation->pluck('id')->toArray();
+            //  dd($weekName);
+            $allChart = [];
+
+
+            foreach ($generateData as $aData) {
+                $aGraph = ["title" => $aData['title'], "labels" => $weekName];
+                $treeData = collect($aData['ownData'])->pluck('name')->toArray();
+                $alphabet = collect($aData['ownData'])->pluck('alphabet')->toArray();
+                $graphInformation = $this->generateQueryResult($alphabet, $weekId);
+                $latestgraphInformation = [];
+                foreach ($graphInformation as $aGraphInfo) {
+                    $latestgraphInformation[] = array_values($aGraphInfo);
+                }
+
+                $aGraph['series'] = $treeData;
+                $aGraph['data'] = $latestgraphInformation;
+                $aGraph['show'] = false;
+
+
+                $allChart[] = $aGraph;
+            }
+
         }
 
+        echo json_encode(['generated_data' => $allChart]);
+    }
 
-        return view('partials.trends')->with(compact(['player_information', 'stranth_meter']));
+
+
+
+    public function geterateTandsDataSinglePlayer(Request $request)
+    {
+
+        $userData = Auth::user()->graphs()->where('is_dashboard', 0)->get();
+
+        $generateData = [];
+        if (count($userData) > 0) {
+
+            $grouped = $userData->groupBy('graph_id')->values()->all();
+            $index = 0;
+            foreach ($grouped as $key => $aData) {
+                $info = ['title' => $aData[$index]['graph_name'], 'is_dashboard' => $aData[$index]['is_dashboard'],
+                    'numberOfKey' => count($aData), 'ownData' => [['name' => $aData[$index]['column_name'], 'alphabet' => $aData[$index]['excell_name']]]];
+                for ($i = 1; $i < count($aData); $i++) {
+                    $info['ownData'][] = ['name' => $aData[$i]['column_name'], 'alphabet' => $aData[$i]['excell_name']];
+                }
+                $generateData[] = $info;
+
+
+            }
+
+            $fileUploadInformation = Auth::user()->fileLoger()->orderBy('id', 'asc')->get();
+            $weekName = $fileUploadInformation->pluck('week_name')->toArray();
+            $weekId = $fileUploadInformation->pluck('id')->toArray();
+            //  dd($weekName);
+            $allChart = [];
+
+
+            foreach ($generateData as $aData) {
+                $aGraph = ["title" => $aData['title'], "labels" => $weekName];
+                $treeData = collect($aData['ownData'])->pluck('name')->toArray();
+                $alphabet = collect($aData['ownData'])->pluck('alphabet')->toArray();
+                $graphInformation = $this->generateQuerySingleResult($alphabet, $weekId,$request->id);
+                $latestgraphInformation = [];
+                foreach ($graphInformation as $aGraphInfo) {
+                    $latestgraphInformation[] = array_values($aGraphInfo);
+                }
+
+                $aGraph['series'] = $treeData;
+                $aGraph['data'] = $latestgraphInformation;
+                $aGraph['show'] = false;
+
+
+                $allChart[] = $aGraph;
+            }
+
+        }
+
+        echo json_encode(['generated_data' => $allChart]);
     }
 
 
