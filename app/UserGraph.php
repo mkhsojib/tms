@@ -8,7 +8,7 @@ class UserGraph extends Model
 {
     protected $table = 'user_graph_setup';
 
-    protected $fillable = ['user_id','graph_id','graph_name','column_name','excell_name'];
+    protected $fillable = ['user_id','graph_id','graph_name','column_name','excell_name','is_dashboard'];
 
     public function user()
     {
