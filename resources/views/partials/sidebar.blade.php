@@ -52,8 +52,13 @@
 
             </li>
             @endcan
-
-
+            @can('add_comment')
+                <li >
+                    <a href="{{ route('admin.comment') }}">
+                        <i class="fa fa-wrench"></i>
+                        <span class="title">Comments</span>
+                    </a>
+                </li>
             {{-- for players --}}
 
 
