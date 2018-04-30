@@ -1,26 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <style>
-        .table > tbody > tr > td {
-            line-height: 0.42;
-        }
-
-        .table-responsive > .fixed-column {
-            position: absolute;
-            display: inline-block;
-            width: auto;
-            border-right: 1px solid #ddd;
-        }
-
-        @media (min-width: 768px) {
-            .table-responsive > .fixed-column {
-                display: none;
-            }
-        }
-
-
-    </style>
+    
 
     <div ng-controller="displayCommentController">
 
@@ -48,16 +29,15 @@
 
                     <div class="panel-body">
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover table-condensed"
-                                   id="excellTable">
+                            <table class="table table-striped table-bordered">
                                 <thead>
                                 <tr>
-                                    <th>Comments</th>
+                                    <th ng-repeat="ath in headers"><% ath %></th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr ng-repeat="aBody in comments">
-                                    <td><% aBody.message %></td>
+                                    <td ng-repeat="ath in aBody"><% ath %></td>
                                 </tr>
                                 <tbody>
                             </table>
@@ -80,6 +60,7 @@
 
             $scope.weekList = [];
             $scope.comments = [];
+            $scope.headers = [];
             var url = "{{ route('admin.comment.coachWeeklist',[0]) }}"
             $http({
                 method: "get",
@@ -90,6 +71,7 @@
 
                     $scope.weekList = info.weeklist;
                     $scope.comments = info.comments;
+                    $scope.headers = info.headers;
                 }else{
                     alert("no updated data");
                 }

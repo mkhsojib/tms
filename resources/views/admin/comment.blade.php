@@ -28,14 +28,14 @@
                             <input type="text" class="form-control" value="Excel" aria-label="...">
                         </div><!-- /input-group -->
                     </div><!-- /.col-lg-6 -->
-                    <div class="col-lg-6">
-                        <div class="input-group">
-                        <span class="input-group-addon">
-                            <input type="radio" name="option" ng-model="option" value="normal"  aria-label="...">
-                        </span>
-                            <input type="text" class="form-control" value="Normal comment" aria-label="...">
-                        </div><!-- /input-group -->
-                    </div><!-- /.col-lg-6 -->
+                    {{--<div class="col-lg-6">--}}
+                        {{--<div class="input-group">--}}
+                        {{--<span class="input-group-addon">--}}
+                            {{--<input type="radio" name="option" ng-model="option" value="normal"  aria-label="...">--}}
+                        {{--</span>--}}
+                            {{--<input type="text" class="form-control" value="Normal comment" aria-label="...">--}}
+                        {{--</div><!-- /input-group -->--}}
+                    {{--</div><!-- /.col-lg-6 -->--}}
                 </div>
             </div>
         </div><!-- /.row -->
