@@ -86,24 +86,24 @@
                     <span class="title">Trends</span>
                 </a>
             </li>
-            <li>
-                <a href="{{ route('admin.users.setup',[Auth::id()]) }}">
-                    <i class="fa fa-line-chart"></i>
-                    <span class="title">Graph Setup</span>
-                </a>
-            </li>
+            {{--<li>--}}
+                {{--<a href="{{ route('admin.users.setup',[Auth::id()]) }}">--}}
+                    {{--<i class="fa fa-line-chart"></i>--}}
+                    {{--<span class="title">Graph Setup</span>--}}
+                {{--</a>--}}
+            {{--</li>--}}
             <li>
                 <a href="{{ route('admin.comment.show') }}">
                     <i class="fa fa-line-chart"></i>
                     <span class="title">Show Comments</span>
                 </a>
             </li>
-            <li>
-                <a href="{{ route('admin.users.dashboardGraphsetup',[Auth::id()]) }}">
-                    <i class="fa fa-line-chart"></i>
-                    <span class="title">DashBoard Graph</span>
-                </a>
-            </li>
+            {{--<li>--}}
+                {{--<a href="{{ route('admin.users.dashboardGraphsetup',[Auth::id()]) }}">--}}
+                    {{--<i class="fa fa-line-chart"></i>--}}
+                    {{--<span class="title">DashBoard Graph</span>--}}
+                {{--</a>--}}
+            {{--</li>--}}
             @endrole
 
 
