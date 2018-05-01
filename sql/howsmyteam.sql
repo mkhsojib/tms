@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 20, 2018 at 09:44 PM
+-- Generation Time: May 01, 2018 at 03:45 AM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.14
 
@@ -30,26 +30,136 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `comments` (
   `id` int(10) UNSIGNED NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `coach_id` int(11) NOT NULL,
-  `file_upload_loger_id` int(11) NOT NULL,
-  `status` int(1) DEFAULT '0',
-  `message` text,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `coach_id` int(11) NOT NULL DEFAULT '0',
+  `file_upload_loger_id` int(11) DEFAULT '0',
+  `user_id` int(11) NOT NULL DEFAULT '0',
+  `is_question` int(11) DEFAULT '0',
+  `a` text COLLATE utf8mb4_unicode_ci,
+  `b` text COLLATE utf8mb4_unicode_ci,
+  `c` text COLLATE utf8mb4_unicode_ci,
+  `d` text COLLATE utf8mb4_unicode_ci,
+  `e` text COLLATE utf8mb4_unicode_ci,
+  `f` text COLLATE utf8mb4_unicode_ci,
+  `g` text COLLATE utf8mb4_unicode_ci,
+  `h` text COLLATE utf8mb4_unicode_ci,
+  `i` text COLLATE utf8mb4_unicode_ci,
+  `j` text COLLATE utf8mb4_unicode_ci,
+  `k` text COLLATE utf8mb4_unicode_ci,
+  `l` text COLLATE utf8mb4_unicode_ci,
+  `m` text COLLATE utf8mb4_unicode_ci,
+  `n` text COLLATE utf8mb4_unicode_ci,
+  `o` text COLLATE utf8mb4_unicode_ci,
+  `p` text COLLATE utf8mb4_unicode_ci,
+  `q` text COLLATE utf8mb4_unicode_ci,
+  `r` text COLLATE utf8mb4_unicode_ci,
+  `s` text COLLATE utf8mb4_unicode_ci,
+  `t` text COLLATE utf8mb4_unicode_ci,
+  `u` text COLLATE utf8mb4_unicode_ci,
+  `v` text COLLATE utf8mb4_unicode_ci,
+  `w` text COLLATE utf8mb4_unicode_ci,
+  `x` text COLLATE utf8mb4_unicode_ci,
+  `y` text COLLATE utf8mb4_unicode_ci,
+  `z` text COLLATE utf8mb4_unicode_ci,
+  `aa` text COLLATE utf8mb4_unicode_ci,
+  `ab` text COLLATE utf8mb4_unicode_ci,
+  `ac` text COLLATE utf8mb4_unicode_ci,
+  `ad` text COLLATE utf8mb4_unicode_ci,
+  `ae` text COLLATE utf8mb4_unicode_ci,
+  `af` text COLLATE utf8mb4_unicode_ci,
+  `ag` text COLLATE utf8mb4_unicode_ci,
+  `ah` text COLLATE utf8mb4_unicode_ci,
+  `ai` text COLLATE utf8mb4_unicode_ci,
+  `aj` text COLLATE utf8mb4_unicode_ci,
+  `ak` text COLLATE utf8mb4_unicode_ci,
+  `al` text COLLATE utf8mb4_unicode_ci,
+  `am` text COLLATE utf8mb4_unicode_ci,
+  `an` text COLLATE utf8mb4_unicode_ci,
+  `ao` text COLLATE utf8mb4_unicode_ci,
+  `ap` text COLLATE utf8mb4_unicode_ci,
+  `aq` text COLLATE utf8mb4_unicode_ci,
+  `ar` text COLLATE utf8mb4_unicode_ci,
+  `as` text COLLATE utf8mb4_unicode_ci,
+  `at` text COLLATE utf8mb4_unicode_ci,
+  `au` text COLLATE utf8mb4_unicode_ci,
+  `av` text COLLATE utf8mb4_unicode_ci,
+  `aw` text COLLATE utf8mb4_unicode_ci,
+  `ax` text COLLATE utf8mb4_unicode_ci,
+  `ay` text COLLATE utf8mb4_unicode_ci,
+  `az` text COLLATE utf8mb4_unicode_ci,
+  `ba` text COLLATE utf8mb4_unicode_ci,
+  `bb` text COLLATE utf8mb4_unicode_ci,
+  `bc` text COLLATE utf8mb4_unicode_ci,
+  `bd` text COLLATE utf8mb4_unicode_ci,
+  `be` text COLLATE utf8mb4_unicode_ci,
+  `bf` text COLLATE utf8mb4_unicode_ci,
+  `bg` text COLLATE utf8mb4_unicode_ci,
+  `bh` text COLLATE utf8mb4_unicode_ci,
+  `bi` text COLLATE utf8mb4_unicode_ci,
+  `bj` text COLLATE utf8mb4_unicode_ci,
+  `bk` text COLLATE utf8mb4_unicode_ci,
+  `bl` text COLLATE utf8mb4_unicode_ci,
+  `bm` text COLLATE utf8mb4_unicode_ci,
+  `bn` text COLLATE utf8mb4_unicode_ci,
+  `bo` text COLLATE utf8mb4_unicode_ci,
+  `bp` text COLLATE utf8mb4_unicode_ci,
+  `bq` text COLLATE utf8mb4_unicode_ci,
+  `br` text COLLATE utf8mb4_unicode_ci,
+  `bs` text COLLATE utf8mb4_unicode_ci,
+  `bt` text COLLATE utf8mb4_unicode_ci,
+  `bu` text COLLATE utf8mb4_unicode_ci,
+  `bv` text COLLATE utf8mb4_unicode_ci,
+  `bw` text COLLATE utf8mb4_unicode_ci,
+  `bx` text COLLATE utf8mb4_unicode_ci,
+  `by` text COLLATE utf8mb4_unicode_ci,
+  `bz` text COLLATE utf8mb4_unicode_ci,
+  `ca` text COLLATE utf8mb4_unicode_ci,
+  `cb` text COLLATE utf8mb4_unicode_ci,
+  `cc` text COLLATE utf8mb4_unicode_ci,
+  `cd` text COLLATE utf8mb4_unicode_ci,
+  `ce` text COLLATE utf8mb4_unicode_ci,
+  `cf` text COLLATE utf8mb4_unicode_ci,
+  `cg` text COLLATE utf8mb4_unicode_ci,
+  `ch` text COLLATE utf8mb4_unicode_ci,
+  `ci` text COLLATE utf8mb4_unicode_ci,
+  `cj` text COLLATE utf8mb4_unicode_ci,
+  `ck` text COLLATE utf8mb4_unicode_ci,
+  `cl` text COLLATE utf8mb4_unicode_ci,
+  `cm` text COLLATE utf8mb4_unicode_ci,
+  `cn` text COLLATE utf8mb4_unicode_ci,
+  `co` text COLLATE utf8mb4_unicode_ci,
+  `cp` text COLLATE utf8mb4_unicode_ci,
+  `cq` text COLLATE utf8mb4_unicode_ci,
+  `cr` text COLLATE utf8mb4_unicode_ci,
+  `cs` text COLLATE utf8mb4_unicode_ci,
+  `ct` text COLLATE utf8mb4_unicode_ci,
+  `cu` text COLLATE utf8mb4_unicode_ci,
+  `cv` text COLLATE utf8mb4_unicode_ci,
+  `cw` text COLLATE utf8mb4_unicode_ci,
+  `cx` text COLLATE utf8mb4_unicode_ci,
+  `cy` text COLLATE utf8mb4_unicode_ci,
+  `cz` text COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `comments`
 --
 
-INSERT INTO `comments` (`id`, `user_id`, `coach_id`, `file_upload_loger_id`, `status`, `message`, `created_at`, `updated_at`) VALUES
-(6, 1, 7, 1, 0, 'he is a good man', '2018-04-20 21:20:10', NULL),
-(7, 1, 7, 1, 0, 'i love his job', '2018-04-20 21:20:10', NULL),
-(8, 1, 7, 1, 0, 'this is fantastic', '2018-04-20 21:20:10', NULL),
-(9, 1, 7, 1, 0, 'how u think about it', '2018-04-20 21:20:10', NULL),
-(10, 1, 7, 1, 0, 'best team', '2018-04-20 21:20:10', NULL),
-(11, 1, 7, 1, 0, 'i line this team', '2018-04-20 21:20:10', NULL);
+INSERT INTO `comments` (`id`, `coach_id`, `file_upload_loger_id`, `user_id`, `is_question`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `h`, `i`, `j`, `k`, `l`, `m`, `n`, `o`, `p`, `q`, `r`, `s`, `t`, `u`, `v`, `w`, `x`, `y`, `z`, `aa`, `ab`, `ac`, `ad`, `ae`, `af`, `ag`, `ah`, `ai`, `aj`, `ak`, `al`, `am`, `an`, `ao`, `ap`, `aq`, `ar`, `as`, `at`, `au`, `av`, `aw`, `ax`, `ay`, `az`, `ba`, `bb`, `bc`, `bd`, `be`, `bf`, `bg`, `bh`, `bi`, `bj`, `bk`, `bl`, `bm`, `bn`, `bo`, `bp`, `bq`, `br`, `bs`, `bt`, `bu`, `bv`, `bw`, `bx`, `by`, `bz`, `ca`, `cb`, `cc`, `cd`, `ce`, `cf`, `cg`, `ch`, `ci`, `cj`, `ck`, `cl`, `cm`, `cn`, `co`, `cp`, `cq`, `cr`, `cs`, `ct`, `cu`, `cv`, `cw`, `cx`, `cy`, `cz`, `created_at`, `updated_at`) VALUES
+(15, 7, 1, 1, 1, 'Are you having any issues with the HFJFD leadership?', 'Are you having any issues with any HFJFD members?', 'What is one thing that you want the HFJFD leadership to know?', 'In your opinion, what is one thing that should be fixed that will lead HFJFD to more success?', 'What do you recommend should be done to fix the issue that you identified?', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(16, 7, 1, 1, 0, 'No.', 'No.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(17, 7, 1, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(18, 7, 1, 1, 0, 'none', 'none', 'keep up the good work men', 'attendance and membership levels', 'Training incentives, mandatory events planned months in advance. ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(19, 7, 1, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(20, 7, 1, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(21, 7, 1, 1, 0, NULL, NULL, NULL, 'get rid of the click that we have ', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(22, 7, 1, 1, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(23, 7, 1, 1, 0, 'NA', 'NA', 'I admire your commitment and dedication to our department and town.', 'NA', 'NA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(24, 7, 1, 1, 0, 'No', 'No', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(25, 7, 1, 1, 0, 'no', 'no', 'i am behind you', 'keep moving forward', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(26, 7, 1, 1, 0, 'No', 'No', 'Why canâ€™t we have channel 1 to talk to dispatch only for lift assist so they know we are on our way so they donâ€™t have to keep paging us out', 'More training', 'So we can get better at our job with more training', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(27, 7, 1, 1, 0, 'No', 'No', 'Theres alot of things that i dont have the knowledge to be able to do on a call or training im a slow learner you mau have to show me things or tell me things several times i might need more 1 on 1 with keeping up on training and going through trucks to find where diffetent tools are kept ect', 'Communication', 'Training always have an officer be available at times where you can keep update on things that you may have missed last month training or if someone wanted to go through trucks ect or reach someone by phone to maybe setup a date to do things', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -71,7 +181,8 @@ CREATE TABLE `file_upload_loger` (
 --
 
 INSERT INTO `file_upload_loger` (`id`, `week_name`, `user_id`, `uploaded_time`, `created_at`, `updated_at`) VALUES
-(1, 'Week 1', 7, '2018-04-19 18:00:00', '2018-04-20 10:58:22', '2018-04-20 10:58:22');
+(1, 'Week 1', 7, '2018-04-19 18:00:00', '2018-04-20 10:58:22', '2018-04-20 10:58:22'),
+(2, '18-Apr', 9, '2018-04-29 18:00:00', '2018-04-30 10:26:40', '2018-04-30 10:26:40');
 
 -- --------------------------------------------------------
 
@@ -326,7 +437,20 @@ INSERT INTO `players` (`id`, `user_id`, `is_question`, `file_upload_loger`, `a`,
 (24, 1, 0, 1, 'Week 1', '7', '8', '3', '4', '5', '7', '7', '19', '2', '7', '5', '4', '3', '1', '4', '4', 'Yes', '3', 'No', '4', '5', '5', '4', 'Yes', 'Yes', '4', '3', '4', '5', '5', '5', '4', '5', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-04-20 10:58:22', '2018-04-20 10:58:22'),
 (25, 1, 0, 1, 'Week 1', '82', '8', '2', '4', '4', '6', '7', '17', '2', '3', '4', '3', '3', '3', '1', '4', 'No', '4', 'Yes', '3', '4', '4', '3', 'Yes', 'Yes', '3', '2', '3', '1', '3', '5', '5', '4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-04-20 10:58:22', '2018-04-20 10:58:22'),
 (26, 1, 0, 1, 'Week 1', '22', '7', '2', '4', '7', '7', '7', '21', '5', '5', '5', '2', '1', '3', '1', '4', 'No', '4', 'No', '4', '4', '4', '4', 'Yes', 'Yes', '4', '4', '4', '3', '5', '5', '4', '5', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-04-20 10:58:22', '2018-04-20 10:58:22'),
-(27, 1, 0, 1, 'Week 1', '4', '7', '0', '4', '6', '5', '7', '18', '0', '0', '5', '4', '4', '4', '4', '4', 'No', '4', 'No', '4', '4', '4', '4', 'Yes', 'Yes', '1', '1', '1', '1', '2', '5', '3', '4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-04-20 10:58:22', '2018-04-20 10:58:22');
+(27, 1, 0, 1, 'Week 1', '4', '7', '0', '4', '6', '5', '7', '18', '0', '0', '5', '4', '4', '4', '4', '4', 'No', '4', 'No', '4', '4', '4', '4', 'Yes', 'Yes', '1', '1', '1', '1', '2', '5', '3', '4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-04-20 10:58:22', '2018-04-20 10:58:22'),
+(28, 1, 1, 2, 'Timestamp', 'What is your ID Number?', 'Monthly Training: How satisfied were you with the training this month?', 'Yearly Training: How satisfied are you with our training for the past year?', 'Best Practice: Would you prefer doing this month\'s Best Practice training online or in a classroom?', 'How useful was the online training?', 'Vehicle: How confident are you on Vehicle Operations?', 'Pumping: How confident are you on Pumping Operations?', 'Ladder: How confident are you on Ladder Operations?', 'Extraction: How confident are you on Extraction Operations?', 'Traffic: How confident are you on Traffic Control?', 'Exterior: How confident are you on Exterior Operations?', 'Interior: How confident are you on Interior Operations', 'Overall: What is your overall stress level?', 'Home: What is your stress level caused by issues at home?', 'Work: What is your stress level caused by issues at work?', 'HFJFD: What is your stress level caused by HFJFD training and events?', 'Calls: What is your stress level caused by HFJFD calls?', 'Are you having lasting effects (trouble sleeping, nightmares, etc) from a call?', 'Calls: Rate your performance during calls.', 'Values: How are you living up to our core values (Professionalism, Service, Brotherhood, Tradition)?', 'Did you do any extra training this month?', 'Attendance: How satisfied are you with your attendance at training, meetings, and calls?', 'Firefighters: Rate your relationships with your fellow firefighters.', 'Leaders: Rate your relationship with the Chiefs and Officers.', 'Overall: Rate your overall level of satisfaction with HFJFD.', 'Are you having any issues with the HFJFD leadership?', 'Are you having any issues with any HFJFD members?', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-04-30 10:26:40', '2018-04-30 10:26:40'),
+(29, 1, 0, 2, '18-Apr', '17-15', NULL, '4', 'On line', '3', '1', '1', '1', '1', '1', '4', NULL, '3', '3', '4', '2', '2', 'No', '4', '5', 'No', '5', '5', '5', '5', 'No.', 'No.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-04-30 10:26:40', '2018-04-30 10:26:40'),
+(30, 1, 0, 2, '18-Apr', '17-27', '4', '4', 'On line', '4', '2', '3', '2', '3', '3', '3', '2', '4', '4', '4', '2', '2', 'No', '4', '4', 'No', '3', '4', '4', '4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-04-30 10:26:40', '2018-04-30 10:26:40'),
+(31, 1, 0, 2, '18-Apr', '17-18', '4', '4', 'Classroom', '3', '4', '3', '4', '3', '4', '5', '4', '2', '2', '2', '3', '1', 'No', '4', '5', 'Yes', '5', '4', '5', '5', 'none', 'none', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-04-30 10:26:40', '2018-04-30 10:26:40'),
+(32, 1, 0, 2, '18-Apr', '17-13', '4', '3', 'Classroom', '3', '1', '1', '1', '1', '1', '1', '1', '3', '4', '4', '1', '1', 'No', '1', '5', 'No', '4', '4', '4', '5', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-04-30 10:26:40', '2018-04-30 10:26:40'),
+(33, 1, 0, 2, '18-Apr', '17-20', '3', '4', 'Classroom', '3', '2', '3', '4', '1', '4', '4', NULL, '2', '1', '1', '1', '2', 'No', '3', '3', 'No', '5', '5', '5', '5', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-04-30 10:26:40', '2018-04-30 10:26:40'),
+(34, 1, 0, 2, '18-Apr', '17-25', '5', '3', 'Classroom', NULL, '4', '4', '5', '4', '5', '5', '4', '1', '1', '1', '2', '1', 'No', '4', '4', 'No', '4', '3', '3', '3', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-04-30 10:26:40', '2018-04-30 10:26:40'),
+(35, 1, 0, 2, '18-Apr', '17-19', '4', '5', 'On line', '5', '3', '1', '3', '3', '4', '3', NULL, '3', '2', '2', '2', '1', 'No', '3', '5', 'No', '5', '4', '4', '4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-04-30 10:26:40', '2018-04-30 10:26:40'),
+(36, 1, 0, 2, '18-Apr', '17-29', NULL, '5', 'On line', '5', '3', '2', '5', '5', '5', '5', '5', '3', '3', '4', '1', '1', 'No', '3', '5', 'No', '1', '5', '5', '5', 'NA', 'NA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-04-30 10:26:40', '2018-04-30 10:26:40'),
+(37, 1, 0, 2, '18-Apr', '17-40', NULL, '4', 'Classroom', '3', '4', '4', '4', '4', '4', '4', '4', '4', '4', '3', '3', '1', 'No', '4', '4', 'Yes', '5', '4', '5', '5', 'No', 'No', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-04-30 10:26:41', '2018-04-30 10:26:41'),
+(38, 1, 0, 2, '18-Apr', '17-22', '4', '4', 'Classroom', '4', '5', '5', NULL, '4', '4', NULL, NULL, '2', '2', NULL, '1', '1', 'No', '4', '5', 'Yes', '5', '4', '4', '4', 'no', 'no', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-04-30 10:26:41', '2018-04-30 10:26:41'),
+(39, 1, 0, 2, '18-Apr', '17-12', '5', '5', 'Classroom', '5', '5', '2', '5', '5', '5', '5', '3', '1', '5', '1', '1', '1', 'No', '5', '5', 'No', '5', '5', '5', '5', 'No', 'No', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-04-30 10:26:41', '2018-04-30 10:26:41'),
+(40, 1, 0, 2, '18-Apr', '17-26', '3', '4', 'Classroom', '2', '2', '1', '4', '3', '4', '3', '3', '3', '4', '5', '2', '4', 'No', '3', '5', 'No', '1', '5', '5', '5', 'No', 'No', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-04-30 10:26:41', '2018-04-30 10:26:41');
 
 -- --------------------------------------------------------
 
@@ -399,9 +523,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`, `last_login_time`) VALUES
-(1, 'Admin', 'admin@email.com', '$2y$10$MPljmlo.o.3h7GWDnqf/aefG3cwN1fzf/itNNzkWyt3BHzQaOmt0u', 'zHzzp3TH12wAIAJYnW8hXchb83PYj0p9JLdrCu8kfLdUZamXk7ZVVyHnn8Ap', '2017-11-15 08:32:25', '2018-04-20 12:53:38', '2018-04-20 11:11:09'),
-(7, 'tapos', 'tapos@email.com', '$2y$10$T0Bn1SEXNGRfv5RMaPkbAur7GU50HGa/7celE/IYTntxNDhUlJwr6', 'ZWmP6LP9cheVnFTBgApBSEqJUzejogh8CGyeD7WJhHJeW8usrf2IVIm3lpIP', '2017-12-04 11:43:59', '2018-04-20 15:23:33', '2018-04-20 15:23:33'),
-(9, 'sojib', 'sojib@email.com', '$2y$10$f731SOgc0T9zDS9l9b9ltOlwtRreVYXtCSF/9pwFuprG4qf92aclm', 'KbbSdWOPP7bgvX3g09rpAHUu5m5BXGvMjahSIA54F653rb7D3Hb228UC14ZK', '2017-12-04 11:54:50', '2018-03-28 13:27:35', '2018-03-28 13:27:35'),
+(1, 'Admin', 'admin@email.com', '$2y$10$MPljmlo.o.3h7GWDnqf/aefG3cwN1fzf/itNNzkWyt3BHzQaOmt0u', '6RL8RW1R4PszWgMfrzF1XxndLyhwCPZTMVZbHn9JVPiF3CDqMplk7aH3PjTP', '2017-11-15 08:32:25', '2018-04-30 14:40:14', '2018-04-30 14:40:14'),
+(7, 'tapos', 'tapos@email.com', '$2y$10$T0Bn1SEXNGRfv5RMaPkbAur7GU50HGa/7celE/IYTntxNDhUlJwr6', '7SdBYtGivbAw25L8VIClKd7XcNyyY9vOTgQ4WZBtuTd2r0vvFVnjNAH5vZah', '2017-12-04 11:43:59', '2018-04-30 15:46:09', '2018-04-30 15:46:09'),
+(9, 'sojib', 'sojib@email.com', '$2y$10$f731SOgc0T9zDS9l9b9ltOlwtRreVYXtCSF/9pwFuprG4qf92aclm', 'KbbSdWOPP7bgvX3g09rpAHUu5m5BXGvMjahSIA54F653rb7D3Hb228UC14ZK', '2017-12-04 11:54:50', '2018-04-30 10:26:53', '2018-04-30 10:26:53'),
 (12, 'Abrahm DiMarco', 'abrahm.dimarco@gmail.com', '$2y$10$xMJPJ4IyeQ.X/mXTths/J.vkXgQpk2lTg4XrRHyvWWbTHkhqPu17m', 'tGIzbxYQd0cBA5JPFHbrt1lJKhTleVlbSdcdvR5EqC3sOqXGmFtNgMYt0wMJ', '2017-12-10 20:56:16', '2017-12-15 04:11:56', '2017-12-15 04:11:56'),
 (14, 'Chris Bernard', 'bernarcd@potsdam.edu', '$2y$10$8aHrr6NWFjXF9Lr7wiVa1ecMGbHE3DeiOLRparMbntwtg.62hxjei', 'gap6fWbYIx4XuixgJ26qDbMkm2vk7BROHp0qNG5jMKRT2qk7B2abRYjkTTuk', '2017-12-11 10:06:13', '2017-12-15 09:09:55', '2017-12-15 09:09:55'),
 (15, 'Jim Bechtel', 'bechtejg@potsdam.edu', '$2y$10$M0yi/rXLEGuEWsM00OSeieJmeZhghIXc2xb0Ir8Teq4dZ/5aU05ee', 'VJ1H1NDy1syNUMuGFIaYg1zTM5wNNEJGO0pPQjJzQgsLnhSSYKUONw0m4Ch8', '2017-12-11 11:17:59', '2017-12-15 09:10:15', '2017-12-15 09:10:15'),
@@ -541,7 +665,7 @@ ALTER TABLE `user_graph_setup`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `file_upload_loger`
@@ -565,7 +689,7 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT for table `players`
 --
 ALTER TABLE `players`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `roles`
