@@ -118,10 +118,10 @@
             });
 
             $scope.onEnd = function(){
-                
+
                 $timeout(function(){
                     jQuery("#excellTable").tableHeadFixer({'left': 2});
-                    alert(document.getElementById("excellTable").getElementsByTagName("tr").length);
+                   // alert(document.getElementById("excellTable").getElementsByTagName("tr").length);
                 }, 10);
             };
 
