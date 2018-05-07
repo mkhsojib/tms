@@ -20,6 +20,7 @@
         }
 
 
+
     </style>
 
     <div ng-controller="dashboardGraphController">
@@ -59,7 +60,7 @@
                                    id="excellTable">
                                 <thead>
                                 <tr>
-                                    <th ng-repeat="aHeader in excellDataHeader"><% aHeader %></th>
+                                    <th ng-repeat="aHeader in excellDataHeader" repeat-end="onEnd()"><% aHeader %></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -89,12 +90,22 @@
         angular.module('tms').config(['ChartJsProvider', function (ChartJsProvider) {
             // Configure all charts
             ChartJsProvider.setOptions({
-                chartColors: ['#FDB45C', '#DCDCDC'],
+                chartColors: ['#FF6384', '#FFCD56'],
                 responsive: true,
                 type: 'pie'
             });
         }]);
-        angular.module('tms').controller("dashboardGraphController", function ($scope, $http) {
+        angular.module('tms').directive("repeatEnd", function(){
+            return {
+                restrict: "A",
+                link: function (scope, element, attrs) {
+                    if (scope.$last) {
+                        scope.$eval(attrs.repeatEnd);
+                    }
+                }
+            };
+        });
+        angular.module('tms').controller("dashboardGraphController", function ($scope, $http,$timeout) {
             $scope.graphList = [];
             $scope.excellDataHeader = [];
             $scope.excellDataBody = [];
@@ -105,6 +116,14 @@
                 var optionSelected = jQuery("option:selected", this).val();
                 $scope.generateMyData(optionSelected,true);
             });
+
+            $scope.onEnd = function(){
+                
+                $timeout(function(){
+                    jQuery("#excellTable").tableHeadFixer({'left': 2});
+                    alert(document.getElementById("excellTable").getElementsByTagName("tr").length);
+                }, 10);
+            };
 
 
             $scope.generateMyData = function (id,statusData) {
@@ -143,6 +162,8 @@
 
                 }, function myError(response) {
 
+                }).then(function () {
+
                 });
             };
 
@@ -151,7 +172,9 @@
 
         });
         jQuery(document).ready(function () {
-            jQuery("#excellTable").tableHeadFixer({'left': 2});
+          //
+
+
 
             jQuery('#changeWeek').on('change', function () {
                 var info = jQuery("#changeWeek").val();
