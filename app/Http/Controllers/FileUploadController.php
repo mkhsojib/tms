@@ -44,15 +44,17 @@ class FileUploadController extends Controller
         return $number;
     }
 
-    private function columnNumber($col){
+    private function columnNumber($col)
+    {
 
-        $col = str_pad($col,2,'0',STR_PAD_LEFT);
+        $col = str_pad($col, 2, '0', STR_PAD_LEFT);
         $i = ($col{0} == '0') ? 0 : (ord($col{0}) - 64) * 26;
         $i += ord($col{1}) - 64;
 
-        return $i-1;
+        return $i - 1;
 
     }
+
     public function import(Request $request)
     {
         $this->validate($request, array(
@@ -80,11 +82,11 @@ class FileUploadController extends Controller
                             }
 
                             foreach ($row->getCellIterator() as $key => $cell) {
-                                if($index==2 && $cell->getColumn()=="A"){
+                                if ($index == 2 && $cell->getColumn() == "A") {
                                     $this->weekName = $cell->getCalculatedValue();
                                 }
 
-                                if($this->columnNumber($key)>102){
+                                if ($this->columnNumber($key) > 102) {
                                     break;
                                 }
 
@@ -140,16 +142,19 @@ class FileUploadController extends Controller
         return view('partials.trends');
     }
 
-    private function generateQueryResult($keysArray, $weekId)
+    private function generateQueryResult($keysArray, $weekId, $firstRowData)
     {
+
         $msg = "";
         foreach ($keysArray as $key => $item) {
-            if ($key == (count($keysArray) - 1)) {
+            if (is_numeric($firstRowData[$item])) {
                 $msg .= "round(avg({$item}),2) as {$item}";
             } else {
-                $msg .= "round(avg({$item}),2) as {$item},";
+                $msg .= "sum(if({$item}='Yes',1,0)) as {$item}";
             }
-
+            if ($key != (count($keysArray) - 1)) {
+                $msg .= ',';
+            }
         }
         $weekIdImplode = implode(",", $weekId);
 
@@ -165,15 +170,17 @@ class FileUploadController extends Controller
     }
 
 
-
-    private function generateQuerySingleResult($keysArray, $weekId,$jurseyNumber)
+    private function generateQuerySingleResult($keysArray, $weekId, $jurseyNumber,$firstRowData)
     {
         $msg = "";
         foreach ($keysArray as $key => $item) {
-            if ($key == (count($keysArray) - 1)) {
+            if (is_numeric($firstRowData[$item])) {
                 $msg .= "round(avg({$item}),2) as {$item}";
             } else {
-                $msg .= "round(avg({$item}),2) as {$item},";
+                $msg .= "sum(if({$item}='Yes',1,0)) as {$item}";
+            }
+            if ($key != (count($keysArray) - 1)) {
+                $msg .= ',';
             }
 
         }
@@ -182,7 +189,7 @@ class FileUploadController extends Controller
         $player_information = Player::select(DB::raw($msg))
             //->where('user_id',Auth::user()->id)
             ->where('is_question', 0)
-            ->where('b',$jurseyNumber)
+            ->where('b', $jurseyNumber)
             ->whereRaw("file_upload_loger in ({$weekIdImplode})")
             ->groupBy('file_upload_loger')
             ->orderBy('file_upload_loger', 'asc')
@@ -195,6 +202,7 @@ class FileUploadController extends Controller
     {
 
         $userData = Auth::user()->graphs()->where('is_dashboard', 0)->get();
+
 
         $generateData = [];
         if (count($userData) > 0) {
@@ -213,9 +221,12 @@ class FileUploadController extends Controller
             }
 
             $fileUploadInformation = Auth::user()->fileLoger()->orderBy('id', 'asc')->get();
+
             $weekName = $fileUploadInformation->pluck('week_name')->toArray();
             $weekId = $fileUploadInformation->pluck('id')->toArray();
-            //  dd($weekName);
+
+            $firstRowData = Player::where('file_upload_loger', $weekId[0])
+                ->where('is_question', 0)->orderBy('id', 'asc')->first()->toArray();
             $allChart = [];
 
 
@@ -223,7 +234,7 @@ class FileUploadController extends Controller
                 $aGraph = ["title" => $aData['title'], "labels" => $weekName];
                 $treeData = collect($aData['ownData'])->pluck('name')->toArray();
                 $alphabet = collect($aData['ownData'])->pluck('alphabet')->toArray();
-                $graphInformation = $this->generateQueryResult($alphabet, $weekId);
+                $graphInformation = $this->generateQueryResult($alphabet, $weekId, $firstRowData);
                 $latestgraphInformation = [];
                 foreach ($graphInformation as $aGraphInfo) {
                     $latestgraphInformation[] = array_values($aGraphInfo);
@@ -241,8 +252,6 @@ class FileUploadController extends Controller
 
         echo json_encode(['generated_data' => $allChart]);
     }
-
-
 
 
     public function geterateTandsDataSinglePlayer(Request $request)
@@ -269,6 +278,8 @@ class FileUploadController extends Controller
             $fileUploadInformation = Auth::user()->fileLoger()->orderBy('id', 'asc')->get();
             $weekName = $fileUploadInformation->pluck('week_name')->toArray();
             $weekId = $fileUploadInformation->pluck('id')->toArray();
+            $firstRowData = Player::where('file_upload_loger', $weekId[0])
+                ->where('is_question', 0)->orderBy('id', 'asc')->first()->toArray();
             //  dd($weekName);
             $allChart = [];
 
@@ -277,7 +288,7 @@ class FileUploadController extends Controller
                 $aGraph = ["title" => $aData['title'], "labels" => $weekName];
                 $treeData = collect($aData['ownData'])->pluck('name')->toArray();
                 $alphabet = collect($aData['ownData'])->pluck('alphabet')->toArray();
-                $graphInformation = $this->generateQuerySingleResult($alphabet, $weekId,$request->id);
+                $graphInformation = $this->generateQuerySingleResult($alphabet, $weekId, $request->id,$firstRowData);
                 $latestgraphInformation = [];
                 foreach ($graphInformation as $aGraphInfo) {
                     $latestgraphInformation[] = array_values($aGraphInfo);
