@@ -37,7 +37,7 @@
                 .done( function (response) {
                     // Triggered if response status code is 200 (OK)
                     var GraphData = response.generated_data;
-                    console.log(response)
+                    console.log(response);
                     var myIndex = 0;
                     GraphData.forEach(function (aValue) {
                         var info = {
@@ -82,10 +82,10 @@
                             for(var lavelData=0;lavelData<aValue.labels.length;lavelData++){
                                 myData.data.push(aValue.data[lavelData][i]);
                             }
-                          //  console.log(myData);
+
                             info.data.datasets.push(myData);
                         }
-                        console.log(info);
+                        console.log("this is our info"+ info);
 
                         var ids = "myChart"+myIndex;
                         $divStyle = "";
