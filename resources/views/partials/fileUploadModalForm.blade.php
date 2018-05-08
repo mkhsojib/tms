@@ -36,13 +36,6 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="week_name" class="control-label col-sm-3">Week/Day Name:</label>
-                        <div class="col-sm-9">
-                            <input type="text" name="week_name" class="form-control" placeholder='enter name '>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
                         <div class="col-sm-offset-3 col-sm-6">
                             <button type="submit" class="btn btn-primary"><i class="fa fa-paper-plane-o" aria-hidden="true"></i> Submit</button>
                         </div>

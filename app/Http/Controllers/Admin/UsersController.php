@@ -62,7 +62,7 @@ class UsersController extends Controller
         $roles = $request->input('roles') ? $request->input('roles') : [];
         $user->assignRole($roles);
 
-        return redirect()->route('admin.users.admin-setup');
+        return redirect()->route('admin.users.index');
     }
 
 
@@ -148,41 +148,71 @@ class UsersController extends Controller
         return view('admin.users.admin-setup', compact('id'));
     }
 
+
+    public function dashboardGraphSetup($id){
+        return view('admin.users.admin-graph-setup', compact('id'));
+    }
+
     public function totalInsertGraph(Request $request){
         $graphData = collect($request->graph_data);
 
 
+        if(isset($request->dashboardSetup)){
+            $GenerateGraphData = [];
+            foreach ($graphData as $key => $aData){
+                foreach ($aData['ownData'] as $insideGraph){
+                    $GenerateGraphData[] = new UserGraph(["graph_id"=>($key+1),'graph_name'=>$aData['title'],
+                        'column_name'=>$insideGraph['name'],
+                        'is_dashboard'=>1,
+                        'excell_name'=>$insideGraph['alphabet']]);
+                }
 
-        $GenerateGraphData = [];
-        foreach ($graphData as $key => $aData){
-            foreach ($aData['ownData'] as $insideGraph){
-                $GenerateGraphData[] = new UserGraph(["graph_id"=>($key+1),'graph_name'=>$aData['title'],
-                    'column_name'=>$insideGraph['name'],'excell_name'=>$insideGraph['alphabet']]);
             }
+            $user = User::find($request->user_id);
+            $user->graphs()->where('is_dashboard',1)->delete();
+            $user->graphs()->saveMany($GenerateGraphData);
+        }else{
+            $GenerateGraphData = [];
+            foreach ($graphData as $key => $aData){
+                foreach ($aData['ownData'] as $insideGraph){
+                    $GenerateGraphData[] = new UserGraph(["graph_id"=>($key+1),'graph_name'=>$aData['title'],
+                        'column_name'=>$insideGraph['name'],'excell_name'=>$insideGraph['alphabet']]);
+                }
 
+            }
+            $user = User::find($request->user_id);
+            $user->graphs()->where('is_dashboard',0)->delete();
+            $user->graphs()->saveMany($GenerateGraphData);
         }
-        $user = User::find($request->user_id);
-        $user->graphs()->delete();
-        $user->graphs()->saveMany($GenerateGraphData);
+
+
 
         echo json_encode(["success"=>true,"message"=>"data insert successfully"]);
 
     }
 
-    public function getUserData($id){
+    public function getUserData($id,$type=null){
         $user = User::find($id);
-        $userData = $user->graphs()->get();
+        if($type==null){
+            $userData = $user->graphs()->where('is_dashboard',0)->get();
+        }else{
+            $userData = $user->graphs()->where('is_dashboard',1)->get();
+        }
+
         $generateData= [];
         if(count($userData)>0){
+
+            $grouped = $userData->groupBy('graph_id')->values()->all();
             $index = 0;
-            $grouped = $userData->groupBy('graph_id');
             foreach ($grouped as $key=> $aData){
-                $info = ['title'=>$aData[$index]['graph_name'],'numberOfKey'=>count($aData),'ownData'=>[['name'=>$aData[$index]['column_name'],'alphabet'=>$aData[$index]['excell_name']]]];
+                $info = ['title'=>$aData[$index]['graph_name'],'is_dashboard'=>$aData[$index]['is_dashboard'],
+                    'numberOfKey'=>count($aData),'ownData'=>[['name'=>$aData[$index]['column_name'],'alphabet'=>$aData[$index]['excell_name']]]];
                 for ($i=1;$i<count($aData);$i++){
                     $info['ownData'][] = ['name'=>$aData[$i]['column_name'],'alphabet'=>$aData[$i]['excell_name']];
                 }
                 $generateData[] = $info;
-                $index++;
+
+
             }
 
         }

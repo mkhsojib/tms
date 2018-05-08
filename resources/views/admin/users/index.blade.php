@@ -51,6 +51,7 @@
 
 
                                     <a href="{{ route('admin.users.setup',[$user->id]) }}" class="btn btn-xs btn-info">@lang('global.setup.title')</a>
+                                    <a href="{{ route('admin.users.dashboardGraphsetup',[$user->id]) }}" class="btn btn-xs btn-info">Dashboard Graph</a>
                                 </td>
 
                             </tr>

@@ -24,7 +24,8 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::post('roles_mass_destroy', ['uses' => 'Admin\RolesController@massDestroy', 'as' => 'roles.mass_destroy']);
 
     Route::get('user/graph_setup/{id}', 'Admin\UsersController@setup_file')->name('users.setup');
-    Route::get('user/get_graph/{id}', 'Admin\UsersController@getUserData')->name('users.getGraph');
+    Route::get('user/dashboard_graph_setup/{id}', 'Admin\UsersController@dashboardGraphSetup')->name('users.dashboardGraphsetup');
+    Route::get('user/get_graph/{id}/{type?}', 'Admin\UsersController@getUserData')->name('users.getGraph');
     Route::post('user/insertGraph', 'Admin\UsersController@totalInsertGraph')->name('users.totalInsertGraph');
 
     Route::resource('users', 'Admin\UsersController');
@@ -35,13 +36,27 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
    // Route::get('players', 'FileUploadController@selectPlayers');
     Route::any('players', 'FileUploadController@selectPlayers')->name('players');
     Route::any('trands', 'FileUploadController@trands')->name('trands');
+    Route::get('generatetrands', 'FileUploadController@geterateTandsData')->name('geterateTandsData');
+    Route::get('geterateTandsDataSinglePlayer/{id?}', 'FileUploadController@geterateTandsDataSinglePlayer')->name('geterateTandsDataSinglePlayer');
 
 
 
     Route::post('upload', 'FileUploadController@import')->name('file.upload');
     Route::post('deletefile', 'FileUploadController@delete')->name('file.delete');
 
+    Route::get('coachDashBoardInfo/{id?}', 'HomeController@generateGraph')->name('coach.dashboardData');
 
+   // Route::resource('comment', 'Admin\CommentController');
+
+    Route::get('comment/', 'CommentController@index')->name('comment');
+
+    // get all coach
+
+    Route::get('allcoach/', 'CommentController@coachList')->name('comment.coach');
+    Route::get('allcoachWeekList/{id?}', 'CommentController@coachWeekList')->name('comment.coachWeeklist');
+    Route::post('storeComment', 'CommentController@storeExcell')->name('comment.insert');
+    Route::post('addComments', 'CommentController@store')->name('comment.store');
+    Route::get('showComments', 'CommentController@show')->name('comment.show');
 
 
 });
