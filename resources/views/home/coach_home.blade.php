@@ -169,6 +169,12 @@
 
             $scope.generateMyData();
 
+            jQuery('#changeWeek').on('change', function () {
+                var optionSelected = jQuery("option:selected", this).val();
+                // alert(optionSelected);
+               $scope.generateMyData(optionSelected,"adf");
+            });
+
 
         });
         jQuery(document).ready(function () {
@@ -176,10 +182,7 @@
 
 
 
-            jQuery('#changeWeek').on('change', function () {
-                var info = jQuery("#changeWeek").val();
-                window.location = "{{url('admin/home')}}/" + info;//here double curly bracket
-            });
+
 
 
         });
