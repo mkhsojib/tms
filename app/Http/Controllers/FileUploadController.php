@@ -127,7 +127,7 @@ class FileUploadController extends Controller
     {
         $fileUploadInformation = Auth::user()->fileLoger()->orderBy('id', 'asc')->get();
         $weekId = implode(",", $fileUploadInformation->pluck('id')->toArray());
-        $players = Player::select(DB::raw('distinct b as id'))
+        $players = Player::select(DB::raw('distinct b as coachInfo'))
             ->where('is_question', 0)
             ->whereRaw("file_upload_loger in ({$weekId})")
             ->groupBy('b')
@@ -146,7 +146,10 @@ class FileUploadController extends Controller
     {
 
         $msg = "";
+
+
         foreach ($keysArray as $key => $item) {
+            $item = strtolower($item);
             if (is_numeric($firstRowData[$item])) {
                 $msg .= "round(avg({$item}),2) as {$item}";
             } else {
@@ -174,6 +177,7 @@ class FileUploadController extends Controller
     {
         $msg = "";
         foreach ($keysArray as $key => $item) {
+            $item = strtolower($item);
             if (is_numeric($firstRowData[$item])) {
                 $msg .= "round(avg({$item}),2) as {$item}";
             } else {
@@ -257,6 +261,7 @@ class FileUploadController extends Controller
     public function geterateTandsDataSinglePlayer(Request $request)
     {
 
+
         $userData = Auth::user()->graphs()->where('is_dashboard', 0)->get();
 
         $generateData = [];
@@ -274,8 +279,11 @@ class FileUploadController extends Controller
 
 
             }
+            $playersWeekIds = Player::where('b',$request->id)->select(DB::raw("distinct file_upload_loger"))->get()->toArray();
+          //  dd($playersWeekIds);
 
-            $fileUploadInformation = Auth::user()->fileLoger()->orderBy('id', 'asc')->get();
+            $fileUploadInformation = Auth::user()->fileLoger()->whereIn('id',$playersWeekIds)->orderBy('id', 'asc')->get();
+
             $weekName = $fileUploadInformation->pluck('week_name')->toArray();
             $weekId = $fileUploadInformation->pluck('id')->toArray();
             $firstRowData = Player::where('file_upload_loger', $weekId[0])

@@ -13,7 +13,7 @@
             <select class="form-control" id="player_id" name="player_id" value="{{ old('player_id') }}">>
             <option value="">Select a Player</option>
             @foreach($players as $item)
-            <option value="{{$item->id}}" {{request()->has('player_id') && request()->player_id== $item->id? 'selected':''}}>{{$item->id}}</option>
+            <option value="{{$item->coachInfo}}" {{request()->has('player_id') && request()->player_id== $item->coachInfo? 'selected':''}}>{{$item->coachInfo}}</option>
             @endforeach
 
             </select>
@@ -51,6 +51,7 @@
             ];
             $('#player_id').on('change', function() {
                 var selectedValue = $(this).find('option:selected').val();
+              //  alert(selectedValue);
                 var url = "{{route('admin.geterateTandsDataSinglePlayer')}}/"+selectedValue;
                 $.ajax({
                     type: 'GET',
@@ -60,7 +61,7 @@
                     .done( function (response) {
                         // Triggered if response status code is 200 (OK)
                         var GraphData = response.generated_data;
-                        console.log(response)
+                        console.log(response);
                         var myIndex = 0;
                         GraphData.forEach(function (aValue) {
                             var info = {
