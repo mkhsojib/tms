@@ -192,7 +192,7 @@ class CommentController extends Controller
             $weekList = FileUploadLoger::where('user_id', Auth::user()->id)->get();
             $comments = [];
             if (count($weekList) > 0) {
-                $comments = Comments::where('file_upload_loger_id', $weekList[0]['id'])->get()->toArray();
+                $comments = Comments::where('file_upload_loger_id', $id==0?$weekList[0]['id']:$id)->get()->toArray();
                 $commentHeader= [];
                 $newCommentList = [];
                 $keyList = [];

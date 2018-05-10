@@ -61,25 +61,40 @@
             $scope.weekList = [];
             $scope.comments = [];
             $scope.headers = [];
-            var url = "{{ route('admin.comment.coachWeeklist',[0]) }}"
-            $http({
-                method: "get",
-                url:  url
-            }).then(function mySuccess(response) {
-                var info = response.data;
-                if (info.success) {
 
-                    $scope.weekList = info.weeklist;
-                    $scope.comments = info.comments;
-                    $scope.headers = info.headers;
-                }else{
-                    alert("no updated data");
-                }
-                console.log(response.data);
 
-            }, function myError(response) {
-
+            jQuery('#changeWeek').on('change', function() {
+                var selectedValue = jQuery(this).find('option:selected').val();
+                $scope.generatedData(selectedValue);
             });
+
+            $scope.generatedData = function(weekId){
+                var url = "{{ route('admin.comment.coachWeeklist') }}/"+weekId;
+                $http({
+                    method: "get",
+                    url:  url
+                }).then(function mySuccess(response) {
+                    var info = response.data;
+                    if (info.success) {
+
+                        if(weekId==0){
+                            $scope.weekList = info.weeklist;
+                        }
+
+                        $scope.comments = info.comments;
+                        $scope.headers = info.headers;
+                    }else{
+                        alert("no updated data");
+                    }
+                    console.log(response.data);
+
+                }, function myError(response) {
+
+                });
+            }
+
+            $scope.generatedData(0);
+
 
 
 
