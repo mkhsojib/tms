@@ -59,16 +59,26 @@ class HomeController extends Controller
             }
 
             $info = [];
+            $keysList = [];
             foreach ($excellData as $key => $aData) {
-                $latestInfo = array_filter($aData->toArray(), function ($var) {
-                    return !is_null($var);
-                });
-                unset($latestInfo['id']);
-                unset($latestInfo['user_id']);
-                unset($latestInfo['file_upload_loger']);
-                unset($latestInfo['created_at']);
-                unset($latestInfo['updated_at']);
-                unset($latestInfo['is_question']);
+                if($key==0){
+                    $latestInfo = array_filter($aData->toArray(), function ($var) {
+                        return !is_null($var);
+                    });
+                    unset($latestInfo['id']);
+                    unset($latestInfo['user_id']);
+                    unset($latestInfo['file_upload_loger']);
+                    unset($latestInfo['created_at']);
+                    unset($latestInfo['updated_at']);
+                    unset($latestInfo['is_question']);
+                    $keysList = collect($latestInfo)->keys()->all();
+
+                }else{
+                    $latestInfo =   collect($aData->toArray())->only($keysList)->all();
+
+                }
+
+
                 $info[] = $latestInfo;
             }
             $excellData = $info;
